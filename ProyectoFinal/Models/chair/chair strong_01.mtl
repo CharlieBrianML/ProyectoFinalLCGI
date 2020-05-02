@@ -1,0 +1,18 @@
+# Blender MTL File: 'chair strong_01.blend'
+# Material Count: 1
+
+newmtl Material.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Bump -bm 0.050000 olddwood_04_norm.png
+map_Ka oldwood_04_ao.png
+map_Kd olddwood_04.png
+map_Ks oldwood_04_rough.png
+map_Ns oldwood_04_rough.png
+map_d olddwood_04.png
