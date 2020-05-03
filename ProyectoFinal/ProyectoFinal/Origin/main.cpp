@@ -94,10 +94,7 @@ GLuint textureID1, textureID2, textureID3, textureID4, textureID5, textureID6, t
 GLuint textureID9, textureID10, textureID11, textureID12, textureID13, textureID14, textureID15, textureID16;
 GLuint textureID17, textureID18, textureID19, textureID20, textureID21, textureID22, textureID23, textureID24;
 GLuint textureID25, textureID26, textureID27, textureID28, textureID29, textureID30, textureID31, textureID32;
-GLuint textureID33, textureID34, textureID35, textureID36, textureID37, textureID38, textureID39, textureID40;
-GLuint textureID41, textureID42, textureID43, textureID44, textureID45, textureID46, textureID47, textureID48;
-GLuint textureID49, textureID50, textureID51, textureID52, textureID53, textureID54, textureID55, textureID56;
-GLuint textureID57, textureID58, textureID59, textureID60, textureID61, textureID62, textureID63, textureID64;
+
 GLuint skyboxTextureID;
 
 GLenum types[6] = {
@@ -115,19 +112,19 @@ GL_TEXTURE_CUBE_MAP_NEGATIVE_Z };
 		"../Textures/hw_nightsky/nightsky_rt.tga",
 		"../Textures/hw_nightsky/nightsky_lf.tga" };*/
 
-/*std::string fileNames[6] = { "../Textures/ame_starfield/starfield_ft.tga",
+std::string fileNames[6] = { "../Textures/ame_starfield/starfield_ft.tga",
 		"../Textures/ame_starfield/starfield_bk.tga",
 		"../Textures/ame_starfield/starfield_up.tga",
 		"../Textures/ame_starfield/starfield_dn.tga",
 		"../Textures/ame_starfield/starfield_rt.tga",
-		"../Textures/ame_starfield/starfield_lf.tga" };*/
+		"../Textures/ame_starfield/starfield_lf.tga" };
 
-std::string fileNames[6] = { "../Textures/hw_deepsea/underwater_ft.tga",
+/*std::string fileNames[6] = { "../Textures/hw_deepsea/underwater_ft.tga",
 		"../Textures/hw_deepsea/underwater_bk.tga",
 		"../Textures/hw_deepsea/underwater_up.tga",
 		"../Textures/hw_deepsea/underwater_dn.tga",
 		"../Textures/hw_deepsea/underwater_rt.tga",
-		"../Textures/hw_deepsea/underwater_lf.tga" };
+		"../Textures/hw_deepsea/underwater_lf.tga" };*/
 
 bool exitApp = false;
 int lastMousePosX, offsetX = 0;
@@ -144,8 +141,7 @@ double currTime, lastTime;
 
 // Se definen todos las funciones.
 void reshapeCallback(GLFWwindow *Window, int widthRes, int heightRes);
-void keyCallback(GLFWwindow *window, int key, int scancode, int action,
-		int mode);
+void keyCallback(GLFWwindow *window, int key, int scancode, int action,int mode);
 void mouseCallback(GLFWwindow *window, double xpos, double ypos);
 void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod);
 void init(int width, int height, std::string strTitle, bool bFullScreen);
@@ -338,11 +334,11 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	camera->setPosition(glm::vec3(0.0, -3.0, 20.0));
 
-	// Descomentar
+	//----------------------------------------------Texturas
 	// Definimos el tamanio de la imagen
 	int imageWidth, imageHeight;
 	// Definiendo la textura a utilizar
-	Texture texture1("../Textures/cesped.jpg");
+	Texture texture1("../Textures/House/carretera.jpg");
 	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
 	FIBITMAP *bitmap = texture1.loadImage();
 	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
@@ -373,7 +369,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Libera la memoria de la textura
 	texture1.freeImage(bitmap);
 
-	Texture texture2("../Textures/House/tierra.jpg");
+	Texture texture2("../Textures/House/asfalto.jpg");
 	bitmap = texture2.loadImage();
 	data = texture2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID2);
@@ -390,7 +386,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture2.freeImage(bitmap);
 
-	Texture texture3("../Textures/House/paredLadrillos.jpg");
+	Texture texture3("../Textures/House/pared1.jpg");
 	bitmap = texture3.loadImage(true);
 	data = texture3.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID3);
@@ -407,7 +403,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture3.freeImage(bitmap);
 
-	Texture texture4("../Textures/House/paredLadrillos2.jpg");
+	Texture texture4("../Textures/House/pared2.jpg");
 	bitmap = texture4.loadImage(true);
 	data = texture4.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID4);
@@ -424,357 +420,202 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture4.freeImage(bitmap);
 
-	//------------------------------------>Textura paredes
 	Texture texturePared("../Textures/House/pared4.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texturePared.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texturePared.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID5);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID5);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texturePared.freeImage(bitmap);
 
 	Texture textureWallOrange("../Textures/House/pared3.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureWallOrange.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureWallOrange.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID6);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID6);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureWallOrange.freeImage(bitmap);
 
 	Texture textureAzulejo("../Textures/House/azulejo1.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureAzulejo.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureAzulejo.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID7);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID7);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureAzulejo.freeImage(bitmap);
 
 	Texture textureTecho("../Textures/House/techo1.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureTecho.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureTecho.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID8);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID8);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureTecho.freeImage(bitmap);
 
 	Texture textureEscalon("../Textures/House/escalon1.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureEscalon.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureEscalon.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID9);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID9);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureEscalon.freeImage(bitmap);
 
 	Texture texturePuerta1("../Textures/House/puerta1.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texturePuerta1.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texturePuerta1.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID10);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID10);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texturePuerta1.freeImage(bitmap);
 
 	Texture texturePuerta2("../Textures/House/puerta2.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texturePuerta2.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texturePuerta2.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID11);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID11);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texturePuerta2.freeImage(bitmap);
 
 	Texture texturePuerta3("../Textures/House/puerta3.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = texturePuerta3.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = texturePuerta3.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID12);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID12);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	texturePuerta3.freeImage(bitmap);
 
 	Texture textureVentana1("../Textures/House/ventana1.png");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureVentana1.loadImage();
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureVentana1.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID13);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID13);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureVentana1.freeImage(bitmap);
 
 	Texture textureMadera1("../Textures/House/madera2.jpg");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureMadera1.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureMadera1.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID14);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID14);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureMadera1.freeImage(bitmap);
 
 	Texture textureVidrio("../Textures/House/vidrioLampara.png");
-	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
-	// Voltear la imagen
 	bitmap = textureVidrio.loadImage(true);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureVidrio.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID15);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID15);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureVidrio.freeImage(bitmap);
 
 	Texture textureBuro("../Textures/House/buro1.jpg");
@@ -833,37 +674,22 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	Texture textureCorbata("../Textures/luna.jpg");
 	bitmap = textureCorbata.loadImage(false);
-	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
 	data = textureCorbata.convertToData(bitmap, imageWidth, imageHeight);
-	// Creando la textura con id 1
 	glGenTextures(1, &textureID21);
-	// Enlazar esa textura a una tipo de textura de 2D.
 	glBindTexture(GL_TEXTURE_2D, textureID21);
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); // set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// Verifica si se pudo abrir la textura
 	if (data) {
-		// Transferis los datos de la imagen a memoria
-		// Tipo de textura, Mipmaps, Formato interno de openGL, ancho, alto, Mipmaps,
-		// Formato interno de la libreria de la imagen, el tipo de dato y al apuntador
-		// a los datos
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
 			GL_BGRA, GL_UNSIGNED_BYTE, data);
-		// Generan los niveles del mipmap (OpenGL es el ecargado de realizarlos)
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
 		std::cout << "Failed to load texture" << std::endl;
-	// Libera la memoria de la textura
 	textureCorbata.freeImage(bitmap);
 
-
-
-	
 
 //--------------------------------------------------------------------------------------------------------------------
 	// Carga de texturas para el skybox
@@ -929,7 +755,7 @@ void mouseCallback(GLFWwindow *window, double xpos, double ypos) {
 }
 
 void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod) {
-	if (state == GLFW_PRESS) {
+	/*if (state == GLFW_PRESS) {
 		switch (button) {
 		case GLFW_MOUSE_BUTTON_RIGHT:
 			std::cout << "lastMousePos.y:" << lastMousePosY << std::endl;
@@ -942,7 +768,7 @@ void mouseButtonCallback(GLFWwindow *window, int button, int state, int mod) {
 			std::cout << "lastMousePos.y:" << lastMousePosY << std::endl;
 			break;
 		}
-	}
+	}*/
 }
 
 bool processInput(bool continueApplication) {
@@ -1251,8 +1077,8 @@ void applicationLoop() {
 								lightModelmatrix
 									* glm::vec4(0.0, 0.0, 0.0, 1.0))));
 
-		sphereLamp.setScale(glm::vec3(1, 1, 1));
-		sphereLamp.setPosition(glm::vec3(0, 0, 0));
+		sphereLamp.setScale(glm::vec3(3.5, 3.5, 3.5));
+		sphereLamp.setPosition(glm::vec3(0, 10, 0));
 		glBindTexture(GL_TEXTURE_2D, textureID21);
 		sphereLamp.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
 		sphereLamp.render(lightModelmatrix);
@@ -1263,32 +1089,29 @@ void applicationLoop() {
 											            CASA
 --------------------------------------------------------------------------------------------------------------------------*/
 //---------------------------------------------Iniciamos a definir la casa----------------------------------------------------------------------------------
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 1 - Pared derecha de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 1 - Pared derecha de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 pared1Model = glm::mat4(1.0);
 		pared1Model = glm::translate(pared1Model, glm::vec3(15.0, 0.0, 0.0));
 		pared1Model = glm::rotate(pared1Model, glm::radians(90.0f), glm::vec3(0, 1.0, 0));
 		pared1Model = glm::scale(pared1Model, glm::vec3(18.0, 10.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 2 - Pared izquierda de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 pared1Model2 = glm::mat4(1.0);
 		pared1Model2 = glm::translate(pared1Model2, glm::vec3(8.0, 0.0, 0.0));
 		pared1Model2 = glm::rotate(pared1Model2, glm::radians(90.0f), glm::vec3(0, 1.0, 0));
 		pared1Model2 = glm::scale(pared1Model2, glm::vec3(18.0, 10.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
+		//glBindTexture(GL_TEXTURE_2D, textureID5);
 		paredGoldenrod.render(pared1Model2);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 3 - Parte trasera de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 pared1Model3 = glm::mat4(1.0);
 		pared1Model3 = glm::translate(pared1Model3, glm::vec3(11.5, 0.0, -9.0));
 		pared1Model3 = glm::scale(pared1Model3, glm::vec3(7.0, 10.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
+		//glBindTexture(GL_TEXTURE_2D, textureID5);
 		paredGoldenrod.render(pared1Model3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1299,8 +1122,10 @@ void applicationLoop() {
 		pared1Model4 = glm::rotate(pared1Model4, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		pared1Model4 = glm::scale(pared1Model4, glm::vec3(18.0, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID8);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(pared1Model4);
+		techo.render(0,8,pared1Model4);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		techo.render(9,20,pared1Model4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Piso planta baja<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<h
@@ -1310,7 +1135,6 @@ void applicationLoop() {
 		pared1Model5 = glm::rotate(pared1Model5, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		pared1Model5 = glm::scale(pared1Model5, glm::vec3(18.0, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID7);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model5);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1321,7 +1145,6 @@ void applicationLoop() {
 		pared1Model6 = glm::rotate(pared1Model6, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		pared1Model6 = glm::scale(pared1Model6, glm::vec3(7.2, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model6);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1331,7 +1154,6 @@ void applicationLoop() {
 		pared1Model7 = glm::rotate(pared1Model7, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		pared1Model7 = glm::scale(pared1Model7, glm::vec3(7.2, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model7);
 		//glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1341,7 +1163,6 @@ void applicationLoop() {
 		pared1Model8 = glm::rotate(pared1Model8, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		pared1Model8 = glm::scale(pared1Model8, glm::vec3(3.6, 3.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model8);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1350,7 +1171,6 @@ void applicationLoop() {
 		pared1Model9 = glm::translate(pared1Model9, glm::vec3(13.0, 0.0, -1.8));
 		pared1Model9 = glm::scale(pared1Model9, glm::vec3(4.0, 10.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model9);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1358,7 +1178,6 @@ void applicationLoop() {
 		pared1Model10 = glm::translate(pared1Model10, glm::vec3(13.0, 2.5, 1.8));
 		pared1Model10 = glm::scale(pared1Model10, glm::vec3(4.0, 5.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model10);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1367,7 +1186,6 @@ void applicationLoop() {
 		pared1Model11 = glm::translate(pared1Model11, glm::vec3(9.5, 4.5, 1.8));
 		pared1Model11 = glm::scale(pared1Model11, glm::vec3(3.0, 1.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(pared1Model11);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1375,7 +1193,6 @@ void applicationLoop() {
 		pared1Model12 = glm::translate(pared1Model12, glm::vec3(8.25, 2.0, 1.8));
 		pared1Model12 = glm::scale(pared1Model12, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model12);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1383,7 +1200,6 @@ void applicationLoop() {
 		pared1Model13 = glm::translate(pared1Model13, glm::vec3(10.75, 2.0, 1.8));
 		pared1Model13 = glm::scale(pared1Model13, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(pared1Model13);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1391,7 +1207,6 @@ void applicationLoop() {
 		puerta1 = glm::translate(puerta1, glm::vec3(9.5, 2.0, 1.8));
 		puerta1 = glm::scale(puerta1, glm::vec3(2.0, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID10);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(puerta1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1400,7 +1215,6 @@ void applicationLoop() {
 		pared1Model14 = glm::translate(pared1Model14, glm::vec3(9.5, 4.5, -1.8));
 		pared1Model14 = glm::scale(pared1Model14, glm::vec3(3.0, 1.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(pared1Model14);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1408,7 +1222,6 @@ void applicationLoop() {
 		pared1Model15 = glm::translate(pared1Model15, glm::vec3(8.25, 2.0, -1.8));
 		pared1Model15 = glm::scale(pared1Model15, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(pared1Model15);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1416,7 +1229,6 @@ void applicationLoop() {
 		pared1Model16 = glm::translate(pared1Model16, glm::vec3(10.75, 2.0, -1.8));
 		pared1Model16 = glm::scale(pared1Model16, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(pared1Model16);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1424,26 +1236,21 @@ void applicationLoop() {
 		puerta2 = glm::translate(puerta2, glm::vec3(9.5, 2.0, -1.8));
 		puerta2 = glm::scale(puerta2, glm::vec3(2.0, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID11);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(puerta2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Escaleras<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 escaleraModel1 = glm::mat4(1.0);
 		escaleraModel1 = glm::translate(escaleraModel1, glm::vec3(14.375, -3.75, 0.0));
-		//escaleraModel1 = glm::rotate(escaleraModel1, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		escaleraModel1 = glm::scale(escaleraModel1, glm::vec3(1.25, 2.5, 3.6));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel2 = glm::mat4(1.0);
 		escaleraModel2 = glm::translate(escaleraModel2, glm::vec3(13.4, -4.0, 0.9));
-		//escaleraModel1 = glm::rotate(escaleraModel1, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		escaleraModel2 = glm::scale(escaleraModel2, glm::vec3(0.7, 2.0, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1451,7 +1258,6 @@ void applicationLoop() {
 		escaleraModel3 = glm::translate(escaleraModel3, glm::vec3(12.7, -4.25, 0.9));
 		escaleraModel3 = glm::scale(escaleraModel3, glm::vec3(0.7, 1.5, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1459,7 +1265,6 @@ void applicationLoop() {
 		escaleraModel4 = glm::translate(escaleraModel4, glm::vec3(12.0, -4.5, 0.9));
 		escaleraModel4 = glm::scale(escaleraModel4, glm::vec3(0.7, 1.0, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1467,7 +1272,6 @@ void applicationLoop() {
 		escaleraModel5 = glm::translate(escaleraModel5, glm::vec3(11.35, -4.75, 0.9));
 		escaleraModel5 = glm::scale(escaleraModel5, glm::vec3(0.7, 0.5, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel5);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1475,7 +1279,6 @@ void applicationLoop() {
 		escaleraModel6 = glm::translate(escaleraModel6, glm::vec3(13.4, -2.1875, -0.9));
 		escaleraModel6 = glm::scale(escaleraModel6, glm::vec3(0.7, 0.625, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel6);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1483,7 +1286,6 @@ void applicationLoop() {
 		escaleraModel7 = glm::translate(escaleraModel7, glm::vec3(12.7, -1.5625, -0.9));
 		escaleraModel7 = glm::scale(escaleraModel7, glm::vec3(0.7, 0.625, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel7);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1491,7 +1293,6 @@ void applicationLoop() {
 		escaleraModel8 = glm::translate(escaleraModel8, glm::vec3(12.0, -0.9375, -0.9));
 		escaleraModel8 = glm::scale(escaleraModel8, glm::vec3(0.7, 0.625, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel8);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1499,7 +1300,6 @@ void applicationLoop() {
 		escaleraModel9 = glm::translate(escaleraModel9, glm::vec3(11.35, -0.3125, -0.9));
 		escaleraModel9 = glm::scale(escaleraModel9, glm::vec3(0.7, 0.625, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(escaleraModel9);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1508,7 +1308,6 @@ void applicationLoop() {
 		paredEscaleraModel1 = glm::translate(paredEscaleraModel1, glm::vec3(11.35, -2.8125, 0.0));
 		paredEscaleraModel1 = glm::scale(paredEscaleraModel1, glm::vec3(0.7, 4.375, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(paredEscaleraModel1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1516,7 +1315,6 @@ void applicationLoop() {
 		paredEscaleraModel2 = glm::translate(paredEscaleraModel2, glm::vec3(12.05, -3.125, 0.0));
 		paredEscaleraModel2 = glm::scale(paredEscaleraModel2, glm::vec3(0.7, 3.75, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(paredEscaleraModel2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1524,7 +1322,6 @@ void applicationLoop() {
 		paredEscaleraModel3 = glm::translate(paredEscaleraModel3, glm::vec3(12.75, -3.4375, 0.0));
 		paredEscaleraModel3 = glm::scale(paredEscaleraModel3, glm::vec3(0.7, 3.125, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(paredEscaleraModel3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1532,7 +1329,6 @@ void applicationLoop() {
 		paredEscaleraModel4 = glm::translate(paredEscaleraModel4, glm::vec3(13.45, -3.75, 0.0));
 		paredEscaleraModel4 = glm::scale(paredEscaleraModel4, glm::vec3(0.7, 2.5, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(paredEscaleraModel4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1540,7 +1336,6 @@ void applicationLoop() {
 		paredEscaleraModell15 = glm::translate(paredEscaleraModell15, glm::vec3(11.0, -0.4375, -0.9));
 		paredEscaleraModell15 = glm::scale(paredEscaleraModell15, glm::vec3(0.01, 0.375, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		paredGoldenrod.render(paredEscaleraModell15);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1565,32 +1360,31 @@ void applicationLoop() {
 		paredFrontalModel1 = glm::translate(paredFrontalModel1, glm::vec3(11.5, 4.25, 9.0));
 		paredFrontalModel1 = glm::scale(paredFrontalModel1, glm::vec3(7.0, 1.5, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		paredGoldenrod.render(paredFrontalModel1);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		paredGoldenrod.render(0, 8, paredFrontalModel1);
 
 		glm::mat4 paredFrontalModel2 = glm::mat4(1.0);
 		paredFrontalModel2 = glm::translate(paredFrontalModel2, glm::vec3(11.5, 0.75, 9.0));
 		paredFrontalModel2 = glm::scale(paredFrontalModel2, glm::vec3(7.0, 1.5, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		paredGoldenrod.render(paredFrontalModel2);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		paredGoldenrod.render(0, 8, paredFrontalModel2);
 
 		glm::mat4 paredFrontalModel3 = glm::mat4(1.0);
 		paredFrontalModel3 = glm::translate(paredFrontalModel3, glm::vec3(14.25, 2.5, 9.0));
 		paredFrontalModel3 = glm::scale(paredFrontalModel3, glm::vec3(1.5, 2.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		paredGoldenrod.render(paredFrontalModel3);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		paredGoldenrod.render(0, 8, paredFrontalModel3);
 
 		glm::mat4 paredFrontalModel4 = glm::mat4(1.0);
 		paredFrontalModel4 = glm::translate(paredFrontalModel4, glm::vec3(9.5, 2.5, 9.0));
 		paredFrontalModel4 = glm::scale(paredFrontalModel4, glm::vec3(3.0, 2.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		paredGoldenrod.render(paredFrontalModel4);
+		paredGoldenrod.render(0, 8, paredFrontalModel4);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+		glBindTexture(GL_TEXTURE_2D, textureID4);
+		shaderTexture.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(0.0000002, 0.0000002)));
+		paredGoldenrod.render(9, 20, paredFrontalModel1);
+		paredGoldenrod.render(9, 20, paredFrontalModel2);
+		paredGoldenrod.render(9, 20, paredFrontalModel3);
+		paredGoldenrod.render(9, 20, paredFrontalModel4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Puerta y ventana principal<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1598,47 +1392,56 @@ void applicationLoop() {
 		pared1Model17 = glm::translate(pared1Model17, glm::vec3(11.5, -0.5, 9.0));
 		pared1Model17 = glm::scale(pared1Model17, glm::vec3(7.0, 1.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		paredGoldenrod.render(pared1Model17);
+		paredGoldenrod.render(0, 8, pared1Model17);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		paredGoldenrod.render(9, 20, pared1Model17);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 pared1Model18 = glm::mat4(1.0);
 		pared1Model18 = glm::translate(pared1Model18, glm::vec3(8.25, -3.0, 9.0));
 		pared1Model18 = glm::scale(pared1Model18, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(pared1Model18);
+		paredGoldenrod.render(0, 8, pared1Model18);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		paredGoldenrod.render(9, 20, pared1Model18);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 pared1Model19 = glm::mat4(1.0);
 		pared1Model19 = glm::translate(pared1Model19, glm::vec3(10.75, -3.0, 9.0));
 		pared1Model19 = glm::scale(pared1Model19, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(pared1Model19);
+		paredGoldenrod.render(0, 8, pared1Model19);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		paredGoldenrod.render(9, 20, pared1Model19);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 pared1Model110 = glm::mat4(1.0);
 		pared1Model110 = glm::translate(pared1Model110, glm::vec3(14.75, -3.0, 9.0));
 		pared1Model110 = glm::scale(pared1Model110, glm::vec3(0.5, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(pared1Model110);
+		paredGoldenrod.render(0, 8, pared1Model110);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		paredGoldenrod.render(9, 20, pared1Model110);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 pared1Model111 = glm::mat4(1.0);
 		pared1Model111 = glm::translate(pared1Model111, glm::vec3(12.75, -4.75, 9.0));
 		pared1Model111 = glm::scale(pared1Model111, glm::vec3(3.5, 0.5, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID6);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(pared1Model111);
+		paredGoldenrod.render(0, 8, pared1Model111);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		paredGoldenrod.render(9, 20, pared1Model111);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 puerta3 = glm::mat4(1.0);
 		puerta3 = glm::translate(puerta3, glm::vec3(9.5, -3.0, 9.0));
 		puerta3 = glm::scale(puerta3, glm::vec3(2.0, 4.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID12);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(puerta3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1646,7 +1449,6 @@ void applicationLoop() {
 		puerta4 = glm::translate(puerta4, glm::vec3(11.0, -3.0, -0.9));
 		puerta4 = glm::scale(puerta4, glm::vec3(0.01, 4.0, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID11);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(puerta4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1656,7 +1458,6 @@ void applicationLoop() {
 		window1 = glm::translate(window1, glm::vec3(12.25, 2.5, 9.0));
 		window1 = glm::scale(window1, glm::vec3(2.5, 2.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID13);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(window1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1664,7 +1465,6 @@ void applicationLoop() {
 		window2 = glm::translate(window2, glm::vec3(12.75, -2.75, 9.0));
 		window2 = glm::scale(window2, glm::vec3(3.5, 3.5, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID13);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		techo.render(window2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1674,7 +1474,6 @@ void applicationLoop() {
 		modelBaseLamp1 = glm::translate(modelBaseLamp1, glm::vec3(11.5, -0.05, 4.0));
 		modelBaseLamp1 = glm::scale(modelBaseLamp1, glm::vec3(1.0, 0.1, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID14);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		cylinderBaseLamp.render(modelBaseLamp1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1682,7 +1481,6 @@ void applicationLoop() {
 		modelLamp1 = glm::translate(modelLamp1, glm::vec3(11.5, -0.1, 4.0));
 		modelLamp1 = glm::scale(modelLamp1, glm::vec3(1.0, 0.2, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID15);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		sphereLamp2.render(modelLamp1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1690,7 +1488,6 @@ void applicationLoop() {
 		modelBaseLamp2 = glm::translate(modelBaseLamp2, glm::vec3(11.5, -0.05, -4.0));
 		modelBaseLamp2 = glm::scale(modelBaseLamp2, glm::vec3(1.0, 0.1, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID14);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		cylinderBaseLamp.render(modelBaseLamp2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1698,7 +1495,6 @@ void applicationLoop() {
 		modelLamp2 = glm::translate(modelLamp2, glm::vec3(11.5, -0.1, -4.0));
 		modelLamp2 = glm::scale(modelLamp2, glm::vec3(1.0, 0.2, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID15);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		sphereLamp2.render(modelLamp2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1706,7 +1502,6 @@ void applicationLoop() {
 		modelBaseLamp3 = glm::translate(modelBaseLamp3, glm::vec3(11.5, 4.95, -5.4));
 		modelBaseLamp3 = glm::scale(modelBaseLamp3, glm::vec3(1.0, 0.1, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID14);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		cylinderBaseLamp.render(modelBaseLamp3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1714,7 +1509,6 @@ void applicationLoop() {
 		modelLamp3 = glm::translate(modelLamp3, glm::vec3(11.5, 4.9, -5.4));
 		modelLamp3 = glm::scale(modelLamp3, glm::vec3(1.0, 0.2, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID15);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		sphereLamp2.render(modelLamp3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1722,7 +1516,6 @@ void applicationLoop() {
 		modelBaseLamp4 = glm::translate(modelBaseLamp4, glm::vec3(11.5, 4.95, 5.4));
 		modelBaseLamp4 = glm::scale(modelBaseLamp4, glm::vec3(1.0, 0.1, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID14);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		cylinderBaseLamp.render(modelBaseLamp4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1730,58 +1523,67 @@ void applicationLoop() {
 		modelLamp4 = glm::translate(modelLamp4, glm::vec3(11.5, 4.9, 5.4));
 		modelLamp4 = glm::scale(modelLamp4, glm::vec3(1.0, 0.2, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID15);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
 		sphereLamp2.render(modelLamp4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Terreno<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 modelGround = glm::mat4(1.0);
-		modelGround = glm::translate(modelGround, glm::vec3(0.0, -5.2, 0.0));
+		modelGround = glm::translate(modelGround, glm::vec3(0.0, -5.3, 0.0));
 		modelGround = glm::rotate(modelGround, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
 		modelGround = glm::scale(modelGround, glm::vec3(100.0, 100.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID18);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
+		glBindTexture(GL_TEXTURE_2D, textureID2);
 		techo.render(modelGround);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Carretera<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 modelHighway1 = glm::mat4(1.0);
-		modelHighway1 = glm::translate(modelHighway1, glm::vec3(2.0, -5.0, 0.0));
-		modelHighway1 = glm::rotate(modelHighway1, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway1 = glm::rotate(modelHighway1, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		modelHighway1 = glm::scale(modelHighway1, glm::vec3(24.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID16);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
+		modelHighway1 = glm::translate(modelHighway1, glm::vec3(2.0, -5.2, 0.0));
+		//modelHighway1 = glm::rotate(modelHighway1, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
+		//modelHighway1 = glm::rotate(modelHighway1, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+		modelHighway1 = glm::scale(modelHighway1, glm::vec3(60.0, 0.01, 50.0));
+		glBindTexture(GL_TEXTURE_2D, textureID1);
 		techo.render(modelHighway1);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Muebles<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 buro = glm::mat4(1.0);
-		buro = glm::translate(buro, glm::vec3(14.0, 0.5, 8.0));
+		buro = glm::translate(buro, glm::vec3(14.0, 0.6, 8.0));
 		buro = glm::scale(buro, glm::vec3(1.2, 1.2, 1.2));
+		buro = glm::rotate(buro, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
 		glBindTexture(GL_TEXTURE_2D, textureID18);
-		techo.render(buro);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		techo.render(0,6,buro);
 		
 		glm::mat4 buro2 = glm::mat4(1.0);
-		buro2 = glm::translate(buro2, glm::vec3(14.0, 0.5, 4.0));
+		buro2 = glm::translate(buro2, glm::vec3(14.0, 0.6, 4.0));
 		buro2 = glm::scale(buro2, glm::vec3(1.2, 1.2, 1.2));
-		glBindTexture(GL_TEXTURE_2D, textureID18);
-		techo.render(buro2);
+		buro2 = glm::rotate(buro2,glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
+		techo.render(0,6,buro2);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		techo.render(6,35,buro);
+		techo.render(6,35,buro2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 buro3 = glm::mat4(1.0);
 		buro3 = glm::translate(buro3, glm::vec3(9.0, 1.0, 6.0));
-		buro3 = glm::scale(buro3, glm::vec3(1.5, 1.5, 3.0));
+		buro3 = glm::rotate(buro3, glm::radians(90.0f), glm::vec3(0.0, 0.9, 0.0));
+		buro3 = glm::scale(buro3, glm::vec3(3.0, 1.5, 1.5));
 		glBindTexture(GL_TEXTURE_2D, textureID19);
-		techo.render(buro3);
+		techo.render(0,6,buro3);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		techo.render(6,35,buro3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 ropero2 = glm::mat4(1.0);
-		ropero2 = glm::translate(ropero2, glm::vec3(13.0, 2.0, 2.0));
-		ropero2 = glm::rotate(ropero2, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-		ropero2 = glm::scale(ropero2, glm::vec3(2.0, 4.0, 4.0));
+		ropero2 = glm::translate(ropero2, glm::vec3(13.0, 2.0, 2.5));
+		ropero2 = glm::scale(ropero2, glm::vec3(4.0, 4.0, 0.8));
 		glBindTexture(GL_TEXTURE_2D, textureID20);
-		techo.render(ropero2);
+		techo.render(0,6,ropero2);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		techo.render(6,35,ropero2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//----------------------------------------------Modelos----------------------------------------------------
@@ -1890,7 +1692,7 @@ void applicationLoop() {
 }
 
 int main(int argc, char **argv) {
-	init(800, 700, "Window GLFW", false);
+	init(800, 700, "Proyecto Final Lab CGIHC", false);
 	applicationLoop();
 	destroy();
 	return 1;
