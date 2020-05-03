@@ -288,7 +288,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	cylinderBaseLamp.setShader(&shaderMulLighting);
 
 
-	modelBed2.loadModel("../Models/bed2/bed 2.obj");
+	/*modelBed2.loadModel("../Models/bed2/bed 2.obj");
 	modelBed2.setShader(&shaderMulLighting);
 
 	modelTV.loadModel("../Models/tv/OBJ/Samsung LED TV.obj");
@@ -296,6 +296,9 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 
 	modelBed5.loadModel("../Models/chair/chair strong_01.obj");
 	modelBed5.setShader(&shaderMulLighting);
+
+	modelBed3.loadModel("../Models/curtain/curtain.obj");
+	modelBed3.setShader(&shaderMulLighting);*/
 
 
 	//modelPickup.loadModel("../Models/car/Pickup/L200-OBJ.obj");
@@ -1640,7 +1643,7 @@ void applicationLoop() {
 		//----------------------------------------------Modelos----------------------------------------------------
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Camas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-		glm::mat4 matrixModelBed2 = glm::mat4(1.0);
+		/*glm::mat4 matrixModelBed2 = glm::mat4(1.0);
 		matrixModelBed2 = glm::translate(matrixModelBed2, glm::vec3(14.9, 0.0, 6.5));
 		matrixModelBed2 = glm::rotate(matrixModelBed2, glm::radians(90.0f), glm::vec3(0.0, -1.0, 0.0));
 		matrixModelBed2 = glm::scale(matrixModelBed2, glm::vec3(0.02, 0.02, 0.02));
@@ -1662,6 +1665,13 @@ void applicationLoop() {
 		modelBed5.render(matrixModelChair);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixModelCurtain = glm::mat4(1.0);
+		matrixModelCurtain = glm::translate(matrixModelCurtain, glm::vec3(12.0, 1.5, 8.8));
+		matrixModelCurtain = glm::scale(matrixModelCurtain, glm::vec3(0.0008, 0.0008, 0.0008));
+		matrixModelCurtain = glm::rotate(matrixModelCurtain, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelBed3.render(matrixModelCurtain);
+		glActiveTexture(GL_TEXTURE0);*/
+
 
 		/*******************************************
 		 * Skybox
@@ -1677,6 +1687,8 @@ void applicationLoop() {
 		skyboxSphere.render();
 		glCullFace(oldCullFaceMode);
 		glDepthFunc(oldDepthFuncMode);
+
+
 	
 		glfwSwapBuffers(window);
 	}
