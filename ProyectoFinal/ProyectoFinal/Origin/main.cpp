@@ -105,12 +105,6 @@ GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
 GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
 GL_TEXTURE_CUBE_MAP_NEGATIVE_Z };
 
-/*std::string fileNames[6] = { "../Textures/hw_nightsky/nightsky_ft.tga",
-		"../Textures/hw_nightsky/nightsky_bk.tga",
-		"../Textures/hw_nightsky/nightsky_up.tga",
-		"../Textures/hw_nightsky/nightsky_dn.tga",
-		"../Textures/hw_nightsky/nightsky_rt.tga",
-		"../Textures/hw_nightsky/nightsky_lf.tga" };*/
 
 std::string fileNames[6] = { "../Textures/ame_starfield/starfield_ft.tga",
 		"../Textures/ame_starfield/starfield_bk.tga",
@@ -119,12 +113,6 @@ std::string fileNames[6] = { "../Textures/ame_starfield/starfield_ft.tga",
 		"../Textures/ame_starfield/starfield_rt.tga",
 		"../Textures/ame_starfield/starfield_lf.tga" };
 
-/*std::string fileNames[6] = { "../Textures/hw_deepsea/underwater_ft.tga",
-		"../Textures/hw_deepsea/underwater_bk.tga",
-		"../Textures/hw_deepsea/underwater_up.tga",
-		"../Textures/hw_deepsea/underwater_dn.tga",
-		"../Textures/hw_deepsea/underwater_rt.tga",
-		"../Textures/hw_deepsea/underwater_lf.tga" };*/
 
 bool exitApp = false;
 int lastMousePosX, offsetX = 0;
@@ -300,36 +288,18 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	cylinderBaseLamp.setShader(&shaderMulLighting);
 
 
-	modelBed.loadModel("../Models/bed/bed2.obj");
-	modelBed.setShader(&shaderMulLighting);
-
 	modelBed2.loadModel("../Models/bed2/bed 2.obj");
 	modelBed2.setShader(&shaderMulLighting);
-
-	/*modelBed3.loadModel("../models/bed3/Obj/Bed 08.obj");
-	modelBed3.setShader(&shaderMulLighting);*/
 
 	modelTV.loadModel("../Models/tv/OBJ/Samsung LED TV.obj");
 	modelTV.setShader(&shaderMulLighting);
 
-	//modelBed4.loadModel("../models/toilet/toilet.obj");
-	//modelBed4.setShader(&shaderMulLighting);
-
 	modelBed5.loadModel("../Models/chair/chair strong_01.obj");
 	modelBed5.setShader(&shaderMulLighting);
 
-	//modelBed6.loadModel("../models/furniture/Obj/Sofa collection.obj");
-	//modelBed6.setShader(&shaderMulLighting);
 
-	//modelBed7.loadModel("../models/table/tbl034.obj");
-	//modelBed7.setShader(&shaderMulLighting);
-
-	/*modelLamp1.loadModel("../models/lamp/EFG8012A-ORB.obj");
-	modelLamp1.setShader(&shaderMulLighting);*/
-
-
-	modelPickup.loadModel("../Models/car/Pickup/L200-OBJ.obj");
-	modelPickup.setShader(&shaderMulLighting);
+	//modelPickup.loadModel("../Models/car/Pickup/L200-OBJ.obj");
+	//modelPickup.setShader(&shaderMulLighting);
 
 
 	camera->setPosition(glm::vec3(0.0, -3.0, 20.0));
@@ -582,7 +552,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureVentana1.freeImage(bitmap);
 
-	Texture textureMadera1("../Textures/House/madera2.jpg");
+	Texture textureMadera1("../Textures/House/madera.jpg");
 	bitmap = textureMadera1.loadImage(true);
 	data = textureMadera1.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID14);
@@ -618,7 +588,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureVidrio.freeImage(bitmap);
 
-	Texture textureBuro("../Textures/House/buro1.jpg");
+	Texture textureBuro("../Textures/House/cajon1.png");
 	bitmap = textureBuro.loadImage(true);
 	data = textureBuro.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID18);
@@ -636,8 +606,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureBuro.freeImage(bitmap);
 
-	Texture textureBuro2("../Textures/House/buro2.jpg");
-	bitmap = textureBuro2.loadImage(true);
+	Texture textureBuro2("../Textures/House/cajon2.jpg");
+	bitmap = textureBuro2.loadImage(false);
 	data = textureBuro2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID19);
 	glBindTexture(GL_TEXTURE_2D, textureID19);
@@ -689,6 +659,60 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	else
 		std::cout << "Failed to load texture" << std::endl;
 	textureCorbata.freeImage(bitmap);
+
+	Texture textureMadera2("../Textures/House/madera2.jpg");
+	bitmap = textureMadera2.loadImage(true);
+	data = textureMadera2.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID22);
+	glBindTexture(GL_TEXTURE_2D, textureID22);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureMadera1.freeImage(bitmap);
+
+	Texture textureEspejo("../Textures/House/espejo.jpg");
+	bitmap = textureEspejo.loadImage(false);
+	data = textureEspejo.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID23);
+	glBindTexture(GL_TEXTURE_2D, textureID23);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureMadera1.freeImage(bitmap);
+
+	Texture textureBote("../Textures/House/cafe.jpg");
+	bitmap = textureBote.loadImage(false);
+	data = textureBote.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID24);
+	glBindTexture(GL_TEXTURE_2D, textureID24);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureMadera1.freeImage(bitmap);
 
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -1077,12 +1101,6 @@ void applicationLoop() {
 								lightModelmatrix
 									* glm::vec4(0.0, 0.0, 0.0, 1.0))));
 
-		sphereLamp.setScale(glm::vec3(3.5, 3.5, 3.5));
-		sphereLamp.setPosition(glm::vec3(0, 10, 0));
-		glBindTexture(GL_TEXTURE_2D, textureID21);
-		sphereLamp.setColor(glm::vec4(1.0, 1.0, 1.0, 1.0));
-		sphereLamp.render(lightModelmatrix);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 
 /*------------------------------------------------------------------------------------------------------------------------
@@ -1538,11 +1556,17 @@ void applicationLoop() {
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Carretera<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 modelHighway1 = glm::mat4(1.0);
 		modelHighway1 = glm::translate(modelHighway1, glm::vec3(2.0, -5.2, 0.0));
-		//modelHighway1 = glm::rotate(modelHighway1, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		//modelHighway1 = glm::rotate(modelHighway1, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		modelHighway1 = glm::scale(modelHighway1, glm::vec3(60.0, 0.01, 50.0));
 		glBindTexture(GL_TEXTURE_2D, textureID1);
 		techo.render(modelHighway1);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 lunaModel = glm::mat4(1.0);
+		lunaModel = glm::translate(lunaModel, glm::vec3(0.0, 8.0, 0.0));
+		lunaModel = glm::scale(lunaModel, glm::vec3(4.0, 4.0, 4.0));
+		lunaModel = glm::rotate(lunaModel, glm::radians(180.0f), glm::vec3(0, 1.0, 0));
+		glBindTexture(GL_TEXTURE_2D, textureID21);
+		sphere3.render(lunaModel);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Muebles<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1567,7 +1591,7 @@ void applicationLoop() {
 
 		glm::mat4 buro3 = glm::mat4(1.0);
 		buro3 = glm::translate(buro3, glm::vec3(9.0, 1.0, 6.0));
-		buro3 = glm::rotate(buro3, glm::radians(90.0f), glm::vec3(0.0, 0.9, 0.0));
+		buro3 = glm::rotate(buro3, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
 		buro3 = glm::scale(buro3, glm::vec3(3.0, 1.5, 1.5));
 		glBindTexture(GL_TEXTURE_2D, textureID19);
 		techo.render(0,6,buro3);
@@ -1576,23 +1600,51 @@ void applicationLoop() {
 		techo.render(6,35,buro3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		glm::mat4 espejo = glm::mat4(1.0);
+		espejo = glm::translate(espejo, glm::vec3(8.5, 2.75, 6.0));
+		espejo = glm::rotate(espejo, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+		espejo = glm::scale(espejo, glm::vec3(2.0, 2.0, 0.1));
+		glBindTexture(GL_TEXTURE_2D, textureID23);
+		techo.render(0, 6, espejo);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		techo.render(6, 35, espejo);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
 		glm::mat4 ropero2 = glm::mat4(1.0);
 		ropero2 = glm::translate(ropero2, glm::vec3(13.0, 2.0, 2.5));
 		ropero2 = glm::scale(ropero2, glm::vec3(4.0, 4.0, 0.8));
 		glBindTexture(GL_TEXTURE_2D, textureID20);
 		techo.render(0,6,ropero2);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindTexture(GL_TEXTURE_2D, textureID14);
+		glBindTexture(GL_TEXTURE_2D, textureID22);
 		techo.render(6,35,ropero2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		glm::mat4 baseBote = glm::mat4(1.0);
+		baseBote = glm::translate(baseBote, glm::vec3(10.5, 0.4, 8.5));
+		baseBote = glm::scale(baseBote, glm::vec3(0.7, 0.7, 0.6));
+		glBindTexture(GL_TEXTURE_2D, textureID24);
+		techo.render(baseBote);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 tapaBote = glm::mat4(1.0);
+		tapaBote = glm::translate(tapaBote, glm::vec3(10.5, 0.8, 8.5));
+		tapaBote = glm::scale(tapaBote, glm::vec3(0.7, 0.7, 0.6));
+		tapaBote = glm::rotate(tapaBote, glm::radians(90.0f),glm::vec3(0.0, 0.0, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID24);
+		cylinder2.render(tapaBote);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
 		//----------------------------------------------Modelos----------------------------------------------------
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Camas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		glm::mat4 matrixModelBed = glm::mat4(1.0);
-		matrixModelBed = glm::translate(matrixModelBed, glm::vec3(13.2, 0.0, 6.0));
-		matrixModelBed = glm::rotate(matrixModelBed, glm::radians(90.0f), glm::vec3(0.0, -1.0, 0.0));
-		matrixModelBed = glm::scale(matrixModelBed, glm::vec3(0.2, 0.2, 0.2));
-		modelBed.render(matrixModelBed);
+
+		glm::mat4 matrixModelBed2 = glm::mat4(1.0);
+		matrixModelBed2 = glm::translate(matrixModelBed2, glm::vec3(14.9, 0.0, 6.5));
+		matrixModelBed2 = glm::rotate(matrixModelBed2, glm::radians(90.0f), glm::vec3(0.0, -1.0, 0.0));
+		matrixModelBed2 = glm::scale(matrixModelBed2, glm::vec3(0.02, 0.02, 0.02));
+		modelBed2.render(matrixModelBed2);
 		glActiveTexture(GL_TEXTURE0);
 
 		glm::mat4 matrixModelTV = glm::mat4(1.0);
@@ -1603,73 +1655,12 @@ void applicationLoop() {
 		modelTV.render(matrixModelTV);
 		glActiveTexture(GL_TEXTURE0);
 
-		/*glm::mat4 modelHighway2 = glm::mat4(1.0);
-		modelHighway2 = glm::translate(modelHighway2, glm::vec3(21.0, -5.0, 0.0));
-		modelHighway2 = glm::rotate(modelHighway2, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway2 = glm::rotate(modelHighway2, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		modelHighway2 = glm::scale(modelHighway2, glm::vec3(24.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID16);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway2);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glm::mat4 modelHighway3 = glm::mat4(1.0);
-		modelHighway3 = glm::translate(modelHighway3, glm::vec3(11.5, -5.0, -15.0));
-		modelHighway3 = glm::rotate(modelHighway3, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway3 = glm::scale(modelHighway3, glm::vec3(13.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID16);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway3);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glm::mat4 modelHighway4 = glm::mat4(1.0);
-		modelHighway4 = glm::translate(modelHighway4, glm::vec3(11.5, -5.0, 15.0));
-		modelHighway4 = glm::rotate(modelHighway4, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway4 = glm::scale(modelHighway4, glm::vec3(13.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID16);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway4);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glm::mat4 modelHighway5 = glm::mat4(1.0);
-		modelHighway5 = glm::translate(modelHighway5, glm::vec3(2.0, -5.0, -15.0));
-		modelHighway5 = glm::rotate(modelHighway5, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway5 = glm::rotate(modelHighway5, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
-		modelHighway5 = glm::scale(modelHighway5, glm::vec3(6.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID17);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway5);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glm::mat4 modelHighway6 = glm::mat4(1.0);
-		modelHighway6 = glm::translate(modelHighway6, glm::vec3(2.0, -5.0, 15.0));
-		modelHighway6 = glm::rotate(modelHighway6, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway6 = glm::rotate(modelHighway6, glm::radians(-180.0f), glm::vec3(0.0, 0.0, 1.0));
-		modelHighway6 = glm::scale(modelHighway6, glm::vec3(6.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID17);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway6);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glm::mat4 modelHighway7 = glm::mat4(1.0);
-		modelHighway7 = glm::translate(modelHighway7, glm::vec3(21.0, -5.0, -15.0));
-		modelHighway7 = glm::rotate(modelHighway7, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway7 = glm::scale(modelHighway7, glm::vec3(6.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID17);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway7);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		glm::mat4 modelHighway8 = glm::mat4(1.0);
-		modelHighway8 = glm::translate(modelHighway8, glm::vec3(21.0, -5.0, 15.0));
-		modelHighway8 = glm::rotate(modelHighway8, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
-		modelHighway8 = glm::rotate(modelHighway8, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		modelHighway8 = glm::scale(modelHighway8, glm::vec3(6.0, 6.0, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID17);
-		//shaderTexture.setVectorFloat2("scaleUV",glm::value_ptr(glm::vec2(2.0, 1.0)));
-		techo.render(modelHighway8);
-		glBindTexture(GL_TEXTURE_2D, 0);*/
-
+		glm::mat4 matrixModelChair = glm::mat4(1.0);
+		matrixModelChair = glm::translate(matrixModelChair, glm::vec3(12.0, 0.0, 9.0));
+		matrixModelChair = glm::scale(matrixModelChair, glm::vec3(0.21, 0.21, 0.21));
+		matrixModelChair = glm::rotate(matrixModelChair, glm::radians(180.0f),glm::vec3(0.0, 1.0, 0.0));
+		modelBed5.render(matrixModelChair);
+		glActiveTexture(GL_TEXTURE0);
 
 
 		/*******************************************

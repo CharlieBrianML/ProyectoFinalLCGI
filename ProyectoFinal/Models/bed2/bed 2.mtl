@@ -40,8 +40,8 @@ newmtl 13___Default
 	Kd 0.1843 0.1843 0.1843
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka fiaba ash.jpg
-	map_Kd fiaba ash.jpg
+	map_Ka chocolate.jpg
+	map_Kd chocolate.jpg
 
 newmtl 14___Default
 	Ns 10.0000

@@ -11,8 +11,8 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Bump -bm 0.050000 olddwood_04_norm.png
-map_Ka oldwood_04_ao.png
-map_Kd olddwood_04.png
-map_Ks oldwood_04_rough.png
-map_Ns oldwood_04_rough.png
-map_d olddwood_04.png
+map_Ka madera.jpg
+map_Kd madera.jpg
+map_Ks madera.jpg
+map_Ns madera.jpg
+map_d madera.jpg
