@@ -121,6 +121,8 @@ int lastMousePosY, offsetY = 0;
 float rot0 = 0.0, dz = 0.0;
 
 float rot1 = 0.0, rot2 = 0.0, rot3 = 0.0, rot4 = 0.0;
+float rotPuerta = 0.0, contPuerta = 0.0;
+int cerrado = 1;
 int modelSelected = 0;
 bool enableCountSelected = true;
 
@@ -301,8 +303,8 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	modelBed3.setShader(&shaderMulLighting);*/
 
 
-	//modelPickup.loadModel("../Models/car/Pickup/L200-OBJ.obj");
-	//modelPickup.setShader(&shaderMulLighting);
+	modelPickup.loadModel("../Models/car/Pickup/L200-OBJ.obj");
+	modelPickup.setShader(&shaderMulLighting);
 
 
 	camera->setPosition(glm::vec3(0.0, -3.0, 20.0));
@@ -994,9 +996,9 @@ void applicationLoop() {
 		shaderMulLighting.setInt("spotLightCount", 5);
 		shaderMulLighting.setVectorFloat3("spotLights[0].position", glm::value_ptr(glm::vec3(11.5, 6.8, 5.4)));
 		shaderMulLighting.setVectorFloat3("spotLights[0].direction", glm::value_ptr(glm::vec3(0.0, -1.0, 0.0)));
-		shaderMulLighting.setVectorFloat3("spotLights[0].light.ambient", glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
-		shaderMulLighting.setVectorFloat3("spotLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.4, 0.0, 0.0)));
-		shaderMulLighting.setVectorFloat3("spotLights[0].light.specular", glm::value_ptr(glm::vec3(0.8, 0.0, 0.0)));
+		shaderMulLighting.setVectorFloat3("spotLights[0].light.ambient", glm::value_ptr(glm::vec3(lightSpecular, lightSpecular, lightSpecular)));
+		shaderMulLighting.setVectorFloat3("spotLights[0].light.diffuse", glm::value_ptr(glm::vec3(0.4, 0.4, 0.4)));
+		shaderMulLighting.setVectorFloat3("spotLights[0].light.specular", glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
 		shaderMulLighting.setFloat("spotLights[0].cutOff", cos(glm::radians(12.5)));
 		shaderMulLighting.setFloat("spotLights[0].outerCutOff", cos(glm::radians(15.0)));
 		shaderMulLighting.setFloat("spotLights[0].constant", 1.0);
@@ -1227,6 +1229,9 @@ void applicationLoop() {
 		glm::mat4 puerta1 = glm::mat4(1.0);
 		puerta1 = glm::translate(puerta1, glm::vec3(9.5, 2.0, 1.8));
 		puerta1 = glm::scale(puerta1, glm::vec3(2.0, 4.0, 0.01));
+		puerta1 = glm::translate(puerta1, glm::vec3(8.0, 2.0, 1.8));
+		puerta1 = glm::rotate(puerta1, glm::radians(rotPuerta),glm::vec3(0.0, 1.0, 0.0));
+		puerta1 = glm::translate(puerta1, glm::vec3(9.5, 2.0, 1.8));
 		glBindTexture(GL_TEXTURE_2D, textureID10);
 		techo.render(puerta1);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -1568,9 +1573,9 @@ void applicationLoop() {
 		lunaModel = glm::translate(lunaModel, glm::vec3(0.0, 8.0, 0.0));
 		lunaModel = glm::scale(lunaModel, glm::vec3(4.0, 4.0, 4.0));
 		lunaModel = glm::rotate(lunaModel, glm::radians(180.0f), glm::vec3(0, 1.0, 0));
-		glBindTexture(GL_TEXTURE_2D, textureID21);
-		sphere3.render(lunaModel);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//glBindTexture(GL_TEXTURE_2D, textureID21);
+		//sphere3.render(lunaModel);
+		//glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Muebles<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 buro = glm::mat4(1.0);
@@ -1688,7 +1693,95 @@ void applicationLoop() {
 		glCullFace(oldCullFaceMode);
 		glDepthFunc(oldDepthFuncMode);
 
+		/*******************************************
+				 * State machines
+		*******************************************/
 
+		modelPickup.render(matrixModelPickup);
+		glActiveTexture(GL_TEXTURE0);
+
+		//Maquina de estados mover la Pickup
+		switch (statePickup)
+		{
+		case 0:
+			//std::cout << "Advance Pickup:" << offsetPickupAdvance << std::endl;
+			matrixModelPickup = glm::translate(matrixModelPickup, glm::vec3(0.0, 0.0, 0.3));
+			offsetPickupAdvance += 0.1;
+			if (offsetPickupAdvance > 65.0) {
+				offsetPickupAdvance = 0.0;
+				statePickup = 1;
+			}
+			break;
+		case 1:
+			//std::cout << "Turn Pickup" << offsetPickupRot << std::endl;
+			matrixModelPickup = glm::translate(matrixModelPickup, glm::vec3(0.0, 0.0, 0.3));
+			matrixModelPickup = glm::rotate(matrixModelPickup, glm::radians(0.5f), glm::vec3(0, 1, 0));
+			offsetPickupRot += 0.5;
+			if (offsetPickupRot > 90) {
+				offsetPickupRot = 0.0;
+				statePickup = 0;
+			}
+		default:
+			break;
+		}
+
+		//Maquina para para prender y apagar las luces
+		switch (onoff)
+		{
+		case 0:
+			//std::cout << "Advance:" << std::endl;
+			contador += 0.1;
+			if (contador > 5.0) {
+				onoff = 1;
+				lightSpecular = 1.0;
+				color = 1.0;
+				contador = 0.0;
+			}
+			break;
+		case 1:
+			//std::cout << "Turn" << std::endl;
+			contador += 0.1;
+			if (contador > 1.0) {
+				onoff = 0;
+				lightSpecular = 0.006;
+				color = 0.0;
+				contador = 0.0;
+			}
+		default:
+			break;
+		}
+
+		/*//Maquina para abrir y cerrar puertas
+		switch (cerrado)
+		{
+		case 0:
+			rotPuerta = -0.1;
+			contPuerta = contPuerta - 0.1;
+			if (rotPuerta < 0.0) {
+				cerrado = 0;
+			}
+			break;
+		case 1:
+			rotPuerta = 0.1;
+			contPuerta = contPuerta + 0.1;
+			if (contPuerta > 90.0) {
+				cerrado = 0;
+			}
+		default:
+			break;
+		}*/
+
+		//Maquina para mover la luna
+			rotPuerta = rotPuerta + 0.1;
+			lunaModel = glm::translate(lunaModel, glm::vec3(0.0, 0.0, 0.0));
+			lunaModel = glm::rotate(lunaModel, glm::radians(rotPuerta), glm::vec3(1.0, 0.0, 0.0));
+			lunaModel = glm::translate(lunaModel, glm::vec3(0.0, 8.0, 0.0));
+			if (rotPuerta > 360.0) {
+				rotPuerta = 0.0;
+			}
+			glBindTexture(GL_TEXTURE_2D, textureID21);
+			sphere3.render(lunaModel);
+			glBindTexture(GL_TEXTURE_2D, 0);
 	
 		glfwSwapBuffers(window);
 	}
