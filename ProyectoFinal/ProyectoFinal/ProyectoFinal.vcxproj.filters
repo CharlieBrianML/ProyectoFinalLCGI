@@ -15,95 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Shaders\basic.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\basic.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\colorShader.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\colorShader.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\cubeTexture.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\cubeTexture.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\directionalLight.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_color.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_color.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_color_res.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_color_res.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_material.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_material.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_material_res.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_texture.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_texture.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_texture_res.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\iluminacion_texture_res.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\multipleLights.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\pointLight.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\sistemasCoordenadas.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\sistemasCoordenadas.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\spotLight.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\texturizado.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\texturizado.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\texturizado_res.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\texturizado_res.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\transformaciones.fs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-    <None Include="..\Shaders\transformaciones.vs">
-      <Filter>Archivos de recursos</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Origin\Headers\AbstractModel.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -172,5 +83,94 @@
     <ClCompile Include="Origin\TimeManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\basic.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\basic.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\colorShader.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\colorShader.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\cubeTexture.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\cubeTexture.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\directionalLight.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_color.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_color.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_color_res.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_color_res.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_material.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_material.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_material_res.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_texture.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_texture.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_texture_res.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\iluminacion_texture_res.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\multipleLights.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\pointLight.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\sistemasCoordenadas.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\sistemasCoordenadas.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\spotLight.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\texturizado.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\texturizado.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\texturizado_res.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\texturizado_res.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\transformaciones.fs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
+    <None Include="Shaders\transformaciones.vs">
+      <Filter>Archivos de recursos</Filter>
+    </None>
   </ItemGroup>
 </Project>

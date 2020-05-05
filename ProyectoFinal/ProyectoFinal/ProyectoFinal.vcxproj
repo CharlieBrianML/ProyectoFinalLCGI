@@ -81,7 +81,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)/External/glew/lib;$(SolutionDir)/External/glfw/lib;$(SolutionDir)/External/assimp/lib;$(SolutionDir)/External/OpenAL/lib;$(SolutionDir)/External/FreeImage/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;FreeImaged.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32d.lib;glfw3.lib;FreeImaged.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -126,37 +126,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\Shaders\basic.fs" />
-    <None Include="..\Shaders\basic.vs" />
-    <None Include="..\Shaders\colorShader.fs" />
-    <None Include="..\Shaders\colorShader.vs" />
-    <None Include="..\Shaders\cubeTexture.fs" />
-    <None Include="..\Shaders\cubeTexture.vs" />
-    <None Include="..\Shaders\directionalLight.fs" />
-    <None Include="..\Shaders\iluminacion_color.fs" />
-    <None Include="..\Shaders\iluminacion_color.vs" />
-    <None Include="..\Shaders\iluminacion_color_res.fs" />
-    <None Include="..\Shaders\iluminacion_color_res.vs" />
-    <None Include="..\Shaders\iluminacion_material.fs" />
-    <None Include="..\Shaders\iluminacion_material.vs" />
-    <None Include="..\Shaders\iluminacion_material_res.fs" />
-    <None Include="..\Shaders\iluminacion_texture.fs" />
-    <None Include="..\Shaders\iluminacion_texture.vs" />
-    <None Include="..\Shaders\iluminacion_texture_res.fs" />
-    <None Include="..\Shaders\iluminacion_texture_res.vs" />
-    <None Include="..\Shaders\multipleLights.fs" />
-    <None Include="..\Shaders\pointLight.fs" />
-    <None Include="..\Shaders\sistemasCoordenadas.fs" />
-    <None Include="..\Shaders\sistemasCoordenadas.vs" />
-    <None Include="..\Shaders\spotLight.fs" />
-    <None Include="..\Shaders\texturizado.fs" />
-    <None Include="..\Shaders\texturizado.vs" />
-    <None Include="..\Shaders\texturizado_res.fs" />
-    <None Include="..\Shaders\texturizado_res.vs" />
-    <None Include="..\Shaders\transformaciones.fs" />
-    <None Include="..\Shaders\transformaciones.vs" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Origin\Headers\AbstractModel.h" />
     <ClInclude Include="Origin\Headers\AnimationUtils.h" />
     <ClInclude Include="Origin\Headers\Box.h" />
@@ -181,6 +150,37 @@
     <ClCompile Include="Origin\Sphere.cpp" />
     <ClCompile Include="Origin\Texture.cpp" />
     <ClCompile Include="Origin\TimeManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\basic.fs" />
+    <None Include="Shaders\basic.vs" />
+    <None Include="Shaders\colorShader.fs" />
+    <None Include="Shaders\colorShader.vs" />
+    <None Include="Shaders\cubeTexture.fs" />
+    <None Include="Shaders\cubeTexture.vs" />
+    <None Include="Shaders\directionalLight.fs" />
+    <None Include="Shaders\iluminacion_color.fs" />
+    <None Include="Shaders\iluminacion_color.vs" />
+    <None Include="Shaders\iluminacion_color_res.fs" />
+    <None Include="Shaders\iluminacion_color_res.vs" />
+    <None Include="Shaders\iluminacion_material.fs" />
+    <None Include="Shaders\iluminacion_material.vs" />
+    <None Include="Shaders\iluminacion_material_res.fs" />
+    <None Include="Shaders\iluminacion_texture.fs" />
+    <None Include="Shaders\iluminacion_texture.vs" />
+    <None Include="Shaders\iluminacion_texture_res.fs" />
+    <None Include="Shaders\iluminacion_texture_res.vs" />
+    <None Include="Shaders\multipleLights.fs" />
+    <None Include="Shaders\pointLight.fs" />
+    <None Include="Shaders\sistemasCoordenadas.fs" />
+    <None Include="Shaders\sistemasCoordenadas.vs" />
+    <None Include="Shaders\spotLight.fs" />
+    <None Include="Shaders\texturizado.fs" />
+    <None Include="Shaders\texturizado.vs" />
+    <None Include="Shaders\texturizado_res.fs" />
+    <None Include="Shaders\texturizado_res.vs" />
+    <None Include="Shaders\transformaciones.fs" />
+    <None Include="Shaders\transformaciones.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
