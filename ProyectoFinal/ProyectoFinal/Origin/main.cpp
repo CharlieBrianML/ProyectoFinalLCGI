@@ -76,11 +76,14 @@ Model modelBed;
 Model modelChair;
 Model modelCurtain;
 Model modelPickup;
+Model modelRefrigerator;
+Model modelCurtainKitchen;
+Model modelTable;
 
 GLuint textureID1, textureID2, textureID3, textureID4, textureID5, textureID6, textureID7, textureID8;
 GLuint textureID9, textureID10, textureID11, textureID12, textureID13, textureID14, textureID15, textureID16;
 GLuint textureID17, textureID18, textureID19, textureID20, textureID21, textureID22, textureID23, textureID24;
-GLuint textureID25, textureID26;
+GLuint textureID25, textureID26, textureID27, textureID28, textureID29, textureID30, textureID31, textureID32;
 
 GLuint skyboxTextureID;
 
@@ -93,12 +96,12 @@ GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
 GL_TEXTURE_CUBE_MAP_NEGATIVE_Z };
 
 
-std::string fileNames[6] = { "../ProyectoFinal/Textures/ame_starfield/starfield_ft.tga",
-		"../ProyectoFinal/Textures/ame_starfield/starfield_bk.tga",
-		"../ProyectoFinal/Textures/ame_starfield/starfield_up.tga",
-		"../ProyectoFinal/Textures/ame_starfield/starfield_dn.tga",
-		"../ProyectoFinal/Textures/ame_starfield/starfield_rt.tga",
-		"../ProyectoFinal/Textures/ame_starfield/starfield_lf.tga" };
+std::string fileNames[6] = { "starfield_ft.tga",
+		"starfield_bk.tga",
+		"starfield_up.tga",
+		"starfield_dn.tga",
+		"starfield_rt.tga",
+		"starfield_lf.tga" };
 
 
 bool exitApp = false;
@@ -175,19 +178,19 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
-	shader.initialize("../ProyectoFinal/Shaders/colorShader.vs", "../Shaders/colorShader.fs");
-	shaderTexture.initialize("../ProyectoFinal/Shaders/texturizado_res.vs",
-		"../ProyectoFinal/Shaders/texturizado_res.fs");
-	shaderColorLighting.initialize("../ProyectoFinal/Shaders/iluminacion_color_res.vs",
-		"../ProyectoFinal/Shaders/iluminacion_color_res.fs");
-	shaderTextureLighting.initialize("../ProyectoFinal/Shaders/iluminacion_texture_res.vs",
-		"../ProyectoFinal/Shaders/iluminacion_texture_res.fs");
-	shaderMaterialLighting.initialize("../ProyectoFinal/Shaders/iluminacion_material.vs",
-		"../ProyectoFinal/Shaders/iluminacion_material_res.fs");
-	shaderSkybox.initialize("../ProyectoFinal/Shaders/cubeTexture.vs",
-		"../ProyectoFinal/Shaders/cubeTexture.fs");
-	shaderMulLighting.initialize("../ProyectoFinal/Shaders/iluminacion_texture_res.vs",
-		"../ProyectoFinal/Shaders/multipleLights.fs");
+	shader.initialize("colorShader.vs", "colorShader.fs");
+	shaderTexture.initialize("texturizado_res.vs",
+		"texturizado_res.fs");
+	shaderColorLighting.initialize("iluminacion_color_res.vs",
+		"iluminacion_color_res.fs");
+	shaderTextureLighting.initialize("iluminacion_texture_res.vs",
+		"iluminacion_texture_res.fs");
+	shaderMaterialLighting.initialize("iluminacion_material.vs",
+		"iluminacion_material_res.fs");
+	shaderSkybox.initialize("cubeTexture.vs",
+		"cubeTexture.fs");
+	shaderMulLighting.initialize("iluminacion_texture_res.vs",
+		"multipleLights.fs");
 
 	// Inicializar los buffers VAO, VBO, EBO
 	sphere1.init();
@@ -220,21 +223,36 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	box2.init();
 	box2.setShader(&shaderMulLighting);
 
-	modelBed.loadModel("../ProyectoFinal/Models/bed/bed 2.obj");
+	modelBed.loadModel("bed 2.obj");
 	modelBed.setShader(&shaderMulLighting);
 
-	modelTV.loadModel("../ProyectoFinal/Models/tv/OBJ/Samsung LED TV.obj");
-	modelTV.setShader(&shaderMulLighting);
+	//modelTV.loadModel("../ProyectoFinal/Models/tv/OBJ/Samsung LED TV.obj");
+	//modelTV.setShader(&shaderMulLighting);
 
-	modelChair.loadModel("../ProyectoFinal/Models/chair/chair strong_01.obj");
-	modelChair.setShader(&shaderMulLighting);
+	//modelChair.loadModel("../ProyectoFinal/Models/chair/chair strong_01.obj");
+	//modelChair.setShader(&shaderMulLighting);
 
-	modelCurtain.loadModel("../ProyectoFinal/Models/curtain/curtain.obj");
+	modelCurtain.loadModel("curtain.obj");
 	modelCurtain.setShader(&shaderMulLighting);
 
 
-	modelPickup.loadModel("../ProyectoFinal/Models/car/Pickup/L200-OBJ.obj");
+	modelPickup.loadModel("L200-OBJ.obj");
 	modelPickup.setShader(&shaderMulLighting);
+
+	modelRefrigerator.loadModel("B_Daily_R_St_N_Electric_0002.obj");
+	modelRefrigerator.setShader(&shaderMulLighting);
+
+	modelCurtainKitchen.loadModel("curtain.obj");
+	modelCurtainKitchen.setShader(&shaderMulLighting);
+
+	modelTable.loadModel("tbl034.obj");
+	modelTable.setShader(&shaderMulLighting);
+
+	modelChair.loadModel("chair strong_01.obj");
+	modelChair.setShader(&shaderMulLighting);
+
+	modelTV.loadModel("Samsung LED TV.obj");
+	modelTV.setShader(&shaderMulLighting);
 
 
 	camera->setPosition(glm::vec3(0.0, -3.0, 20.0));
@@ -243,7 +261,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Definimos el tamanio de la imagen
 	int imageWidth, imageHeight;
 	// Definiendo la textura a utilizar
-	Texture texture1("../ProyectoFinal/Textures/House/carretera.jpg");
+	Texture texture1("carretera.jpg");
 	// Carga el mapa de bits (FIBITMAP es el tipo de dato de la libreria)
 	FIBITMAP* bitmap = texture1.loadImage();
 	// Convertimos el mapa de bits en un arreglo unidimensional de tipo unsigned char
@@ -275,7 +293,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 	// Libera la memoria de la textura
 	texture1.freeImage(bitmap);
 
-	Texture texture2("../ProyectoFinal/Textures/House/asfalto.jpg");
+	Texture texture2("asfalto.jpg");
 	bitmap = texture2.loadImage();
 	data = texture2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID2);
@@ -293,7 +311,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture2.freeImage(bitmap);
 
-	Texture texture3("../ProyectoFinal/Textures/House/pared1.jpg");
+	Texture texture3("pared1.jpg");
 	bitmap = texture3.loadImage(true);
 	data = texture3.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID3);
@@ -311,7 +329,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture3.freeImage(bitmap);
 
-	Texture texture4("../ProyectoFinal/Textures/House/azulejo2.jpg");
+	Texture texture4("azulejo2.jpg");
 	bitmap = texture4.loadImage(true);
 	data = texture4.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID4);
@@ -329,7 +347,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texture4.freeImage(bitmap);
 
-	Texture texturePared("../ProyectoFinal/Textures/House/pared4.jpg");
+	Texture texturePared("pared4.jpg");
 	bitmap = texturePared.loadImage(true);
 	data = texturePared.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID5);
@@ -347,7 +365,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texturePared.freeImage(bitmap);
 
-	Texture textureWallOrange("../ProyectoFinal/Textures/House/pared3.jpg");
+	Texture textureWallOrange("pared3.jpg");
 	bitmap = textureWallOrange.loadImage(true);
 	data = textureWallOrange.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID6);
@@ -365,7 +383,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureWallOrange.freeImage(bitmap);
 
-	Texture textureAzulejo("../ProyectoFinal/Textures/House/azulejo1.jpg");
+	Texture textureAzulejo("azulejo1.jpg");
 	bitmap = textureAzulejo.loadImage(true);
 	data = textureAzulejo.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID7);
@@ -383,7 +401,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureAzulejo.freeImage(bitmap);
 
-	Texture textureTecho("../ProyectoFinal/Textures/House/techo.jpg");
+	Texture textureTecho("techo.jpg");
 	bitmap = textureTecho.loadImage(true);
 	data = textureTecho.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID8);
@@ -401,7 +419,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureTecho.freeImage(bitmap);
 
-	Texture textureEscalon("../ProyectoFinal/Textures/House/escalon.jpg");
+	Texture textureEscalon("escalon.jpg");
 	bitmap = textureEscalon.loadImage();
 	data = textureEscalon.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID9);
@@ -419,7 +437,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureEscalon.freeImage(bitmap);
 
-	Texture texturePuerta1("../ProyectoFinal/Textures/House/puerta1.jpg");
+	Texture texturePuerta1("puerta1.jpg");
 	bitmap = texturePuerta1.loadImage();
 	data = texturePuerta1.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID10);
@@ -437,7 +455,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texturePuerta1.freeImage(bitmap);
 
-	Texture texturePuerta2("../ProyectoFinal/Textures/House/puerta2.jpg");
+	Texture texturePuerta2("puerta2.jpg");
 	bitmap = texturePuerta2.loadImage();
 	data = texturePuerta2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID11);
@@ -455,7 +473,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texturePuerta2.freeImage(bitmap);
 
-	Texture texturePuerta3("../ProyectoFinal/Textures/House/puerta3.jpg");
+	Texture texturePuerta3("puerta3.jpg");
 	bitmap = texturePuerta3.loadImage();
 	data = texturePuerta3.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID12);
@@ -473,7 +491,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texturePuerta3.freeImage(bitmap);
 
-	Texture textureVentana1("../ProyectoFinal/Textures/House/ventana.png");
+	Texture textureVentana1("ventana.png");
 	bitmap = textureVentana1.loadImage();
 	data = textureVentana1.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID13);
@@ -491,7 +509,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureVentana1.freeImage(bitmap);
 
-	Texture textureMadera1("../ProyectoFinal/Textures/House/madera.jpg");
+	Texture textureMadera1("madera.jpg");
 	bitmap = textureMadera1.loadImage(true);
 	data = textureMadera1.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID14);
@@ -509,7 +527,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureMadera1.freeImage(bitmap);
 
-	Texture textureVidrio("../ProyectoFinal/Textures/House/vidrioLampara.png");
+	Texture textureVidrio("vidrioLampara.png");
 	bitmap = textureVidrio.loadImage(true);
 	data = textureVidrio.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID15);
@@ -527,7 +545,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureVidrio.freeImage(bitmap);
 
-	Texture textureBuro("../ProyectoFinal/Textures/House/cajon1.png");
+	Texture textureBuro("cajon1.png");
 	bitmap = textureBuro.loadImage(true);
 	data = textureBuro.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID18);
@@ -545,7 +563,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureBuro.freeImage(bitmap);
 
-	Texture textureBuro2("../ProyectoFinal/Textures/House/cajon2.jpg");
+	Texture textureBuro2("cajon2.jpg");
 	bitmap = textureBuro2.loadImage(false);
 	data = textureBuro2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID19);
@@ -563,7 +581,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureBuro2.freeImage(bitmap);
 
-	Texture textureRopero("../ProyectoFinal/Textures/House/ropero.jpg");
+	Texture textureRopero("ropero.jpg");
 	bitmap = textureRopero.loadImage(true);
 	data = textureRopero.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID20);
@@ -581,7 +599,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureRopero.freeImage(bitmap);
 
-	Texture textureLuna("../ProyectoFinal/Textures/House/luna.jpg");
+	Texture textureLuna("luna.jpg");
 	bitmap = textureLuna.loadImage(false);
 	data = textureLuna.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID21);
@@ -599,7 +617,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureLuna.freeImage(bitmap);
 
-	Texture textureMadera2("../ProyectoFinal/Textures/House/madera2.jpg");
+	Texture textureMadera2("madera2.jpg");
 	bitmap = textureMadera2.loadImage(true);
 	data = textureMadera2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID22);
@@ -617,7 +635,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureMadera2.freeImage(bitmap);
 
-	Texture textureEspejo("../ProyectoFinal/Textures/House/espejo.jpg");
+	Texture textureEspejo("espejo.jpg");
 	bitmap = textureEspejo.loadImage(false);
 	data = textureEspejo.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID23);
@@ -635,7 +653,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureEspejo.freeImage(bitmap);
 
-	Texture textureBote("../ProyectoFinal/Textures/House/cafe.jpg");
+	Texture textureBote("cafe.jpg");
 	bitmap = textureBote.loadImage(false);
 	data = textureBote.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID24);
@@ -653,7 +671,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureBote.freeImage(bitmap);
 
-	Texture textureCabecera("../ProyectoFinal/Textures/House/cabecera.png");
+	Texture textureCabecera("cabecera.png");
 	bitmap = textureCabecera.loadImage(false);
 	data = textureCabecera.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID25);
@@ -671,7 +689,7 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	textureCabecera.freeImage(bitmap);
 
-	Texture texturePared2("../ProyectoFinal/Textures/House/pared2.jpg");
+	Texture texturePared2("pared2.jpg");
 	bitmap = texturePared2.loadImage(false);
 	data = texturePared2.convertToData(bitmap, imageWidth, imageHeight);
 	glGenTextures(1, &textureID26);
@@ -689,6 +707,113 @@ void init(int width, int height, std::string strTitle, bool bFullScreen) {
 		std::cout << "Failed to load texture" << std::endl;
 	texturePared2.freeImage(bitmap);
 
+	Texture textureAzulejo3("azulejo3.jpg");
+	bitmap = textureAzulejo3.loadImage(false);
+	data = textureAzulejo3.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID27);
+	glBindTexture(GL_TEXTURE_2D, textureID27);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureAzulejo3.freeImage(bitmap);
+
+	Texture textureMetal("vitrina.png");
+	bitmap = textureMetal.loadImage(false);
+	data = textureMetal.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID28);
+	glBindTexture(GL_TEXTURE_2D, textureID28);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureMetal.freeImage(bitmap);
+
+	Texture textureCortina("vitrina2.png");
+	bitmap = textureCortina.loadImage(false);
+	data = textureCortina.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID29);
+	glBindTexture(GL_TEXTURE_2D, textureID29);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureCortina.freeImage(bitmap);
+
+	Texture texturePuertaCocina("puerta4.png");
+	bitmap = texturePuertaCocina.loadImage(false);
+	data = texturePuertaCocina.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID30);
+	glBindTexture(GL_TEXTURE_2D, textureID30);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	texturePuertaCocina.freeImage(bitmap);
+
+	Texture textureEstufa("estufa.png");
+	bitmap = textureEstufa.loadImage(false);
+	data = textureEstufa.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID31);
+	glBindTexture(GL_TEXTURE_2D, textureID31);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureEstufa.freeImage(bitmap);
+
+	Texture textureParrilla("parrilla.jpg");
+	bitmap = textureParrilla.loadImage(false);
+	data = textureParrilla.convertToData(bitmap, imageWidth, imageHeight);
+	glGenTextures(1, &textureID32);
+	glBindTexture(GL_TEXTURE_2D, textureID32);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageWidth, imageHeight, 0,
+			GL_BGRA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+		std::cout << "Failed to load texture" << std::endl;
+	textureParrilla.freeImage(bitmap);
 
 	//--------------------------------------------------------------------------------------------------------------------
 		// Carga de texturas para el skybox
@@ -952,7 +1077,7 @@ void applicationLoop() {
 		/*******************************************
 		 * Propiedades SpotLights
 		 *******************************************/
-		shaderMulLighting.setInt("spotLightCount", 1);
+		shaderMulLighting.setInt("spotLightCount", 3);
 		shaderMulLighting.setVectorFloat3("spotLights[0].position", glm::value_ptr(glm::vec3(11.5, 6.8, 5.4)));
 		shaderMulLighting.setVectorFloat3("spotLights[0].direction", glm::value_ptr(glm::vec3(0.0, -1.0, 0.0)));
 		shaderMulLighting.setVectorFloat3("spotLights[0].light.ambient", glm::value_ptr(glm::vec3(light, light, light)));
@@ -963,6 +1088,28 @@ void applicationLoop() {
 		shaderMulLighting.setFloat("spotLights[0].constant", 1.0);
 		shaderMulLighting.setFloat("spotLights[0].linear", 0.0);
 		shaderMulLighting.setFloat("spotLights[0].quadratic", 0.009);
+
+		shaderMulLighting.setVectorFloat3("spotLights[1].position", glm::value_ptr(glm::vec3(11.5, 1.8, -6.0)));
+		shaderMulLighting.setVectorFloat3("spotLights[1].direction", glm::value_ptr(glm::vec3(0.0, -1.0, 0.0)));
+		shaderMulLighting.setVectorFloat3("spotLights[1].light.ambient", glm::value_ptr(glm::vec3(light, light, light)));
+		shaderMulLighting.setVectorFloat3("spotLights[1].light.diffuse", glm::value_ptr(glm::vec3(light, light, light)));
+		shaderMulLighting.setVectorFloat3("spotLights[1].light.specular", glm::value_ptr(glm::vec3(light, light, light)));
+		shaderMulLighting.setFloat("spotLights[1].cutOff", cos(glm::radians(12.5)));
+		shaderMulLighting.setFloat("spotLights[1].outerCutOff", cos(glm::radians(15.0)));
+		shaderMulLighting.setFloat("spotLights[1].constant", 1.0);
+		shaderMulLighting.setFloat("spotLights[1].linear", 0.0);
+		shaderMulLighting.setFloat("spotLights[1].quadratic", 0.009);
+
+		shaderMulLighting.setVectorFloat3("spotLights[2].position", glm::value_ptr(glm::vec3(11.5, 1.8, -12.0)));
+		shaderMulLighting.setVectorFloat3("spotLights[2].direction", glm::value_ptr(glm::vec3(0.0, -1.0, 0.0)));
+		shaderMulLighting.setVectorFloat3("spotLights[2].light.ambient", glm::value_ptr(glm::vec3(light, light, light)));
+		shaderMulLighting.setVectorFloat3("spotLights[2].light.diffuse", glm::value_ptr(glm::vec3(light, light, light)));
+		shaderMulLighting.setVectorFloat3("spotLights[2].light.specular", glm::value_ptr(glm::vec3(light, light, light)));
+		shaderMulLighting.setFloat("spotLights[2].cutOff", cos(glm::radians(12.5)));
+		shaderMulLighting.setFloat("spotLights[2].outerCutOff", cos(glm::radians(15.0)));
+		shaderMulLighting.setFloat("spotLights[2].constant", 1.0);
+		shaderMulLighting.setFloat("spotLights[2].linear", 0.0);
+		shaderMulLighting.setFloat("spotLights[2].quadratic", 0.009);
 
 
 		/*******************************************
@@ -1009,38 +1156,44 @@ void applicationLoop() {
 
 
 
-									  /*------------------------------------------------------------------------------------------------------------------------
-																							  CASA
-									  --------------------------------------------------------------------------------------------------------------------------*/
-									  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 1 - Pared derecha de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	/*------------------------------------------------------------------------------------------------------------------------
+														CASA
+	--------------------------------------------------------------------------------------------------------------------------*/
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 1 - Pared derecha de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 pared1Model = glm::mat4(1.0);
-		pared1Model = glm::translate(pared1Model, glm::vec3(15.0, 0.0, 0.0));
+		pared1Model = glm::translate(pared1Model, glm::vec3(15.0, 0.0, -4.5));
 		pared1Model = glm::rotate(pared1Model, glm::radians(90.0f), glm::vec3(0, 1.0, 0));
-		pared1Model = glm::scale(pared1Model, glm::vec3(18.0, 10.0, 0.01));
+		pared1Model = glm::scale(pared1Model, glm::vec3(27.0, 10.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
 		//shaderTexture.setVectorFloat2("scaleUV", glm::value_ptr(glm::vec2(2.0, 1.0)));
 		box2.render(pared1Model);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 2 - Pared izquierda de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 paredModel2 = glm::mat4(1.0);
-		paredModel2 = glm::translate(paredModel2, glm::vec3(8.0, 0.0, 0.0));
+		paredModel2 = glm::translate(paredModel2, glm::vec3(8.0, 0.0, -4.5));
 		paredModel2 = glm::rotate(paredModel2, glm::radians(90.0f), glm::vec3(0, 1.0, 0));
-		paredModel2 = glm::scale(paredModel2, glm::vec3(18.0, 10.0, 0.01));
+		paredModel2 = glm::scale(paredModel2, glm::vec3(27.0, 10.0, 0.01));
 		box2.render(paredModel2);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared 3 - Parte trasera de la casa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 paredModel3 = glm::mat4(1.0);
-		paredModel3 = glm::translate(paredModel3, glm::vec3(11.5, 0.0, -9.0));
-		paredModel3 = glm::scale(paredModel3, glm::vec3(7.0, 10.0, 0.01));
+		paredModel3 = glm::translate(paredModel3, glm::vec3(11.5, 2.5, -9.0));
+		paredModel3 = glm::scale(paredModel3, glm::vec3(7.0, 5.0, 0.01));
 		box2.render(paredModel3);
+		//glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 paredModel32 = glm::mat4(1.0);
+		paredModel32 = glm::translate(paredModel32, glm::vec3(11.5, 0.0, -18.0));
+		paredModel32 = glm::scale(paredModel32, glm::vec3(7.0, 10.0, 0.01));
+		box2.render(paredModel32);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Techo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 paredModel4 = glm::mat4(1.0);
-		paredModel4 = glm::translate(paredModel4, glm::vec3(11.5, 5.0, 0.0));
+		paredModel4 = glm::translate(paredModel4, glm::vec3(11.5, 5.0, -4.5));
 		paredModel4 = glm::rotate(paredModel4, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		paredModel4 = glm::rotate(paredModel4, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-		paredModel4 = glm::scale(paredModel4, glm::vec3(18.0, 7.0, 0.01));
+		paredModel4 = glm::scale(paredModel4, glm::vec3(27.0, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID8);
 		box2.render(0, 8, paredModel4);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -1050,20 +1203,20 @@ void applicationLoop() {
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Piso planta baja<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 paredModel5 = glm::mat4(1.0);
-		paredModel5 = glm::translate(paredModel5, glm::vec3(11.5, -5.0, 0.0));
+		paredModel5 = glm::translate(paredModel5, glm::vec3(11.5, -5.0, -4.5));
 		paredModel5 = glm::rotate(paredModel5, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		paredModel5 = glm::rotate(paredModel5, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-		paredModel5 = glm::scale(paredModel5, glm::vec3(18.0, 7.0, 0.01));
+		paredModel5 = glm::scale(paredModel5, glm::vec3(27.0, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID7);
 		box2.render(paredModel5);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Techo 1er Piso<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 paredModel6 = glm::mat4(1.0);
-		paredModel6 = glm::translate(paredModel6, glm::vec3(11.5, 0.0, -5.4));
+		paredModel6 = glm::translate(paredModel6, glm::vec3(11.5, 0.0, -9.9));
 		paredModel6 = glm::rotate(paredModel6, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
 		paredModel6 = glm::rotate(paredModel6, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
-		paredModel6 = glm::scale(paredModel6, glm::vec3(7.2, 7.0, 0.01));
+		paredModel6 = glm::scale(paredModel6, glm::vec3(16.2, 7.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID4);
 		box2.render(0, 6, paredModel6);
 
@@ -1090,8 +1243,8 @@ void applicationLoop() {
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Paredes de las habitaciones<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		glm::mat4 paredModel9 = glm::mat4(1.0);
-		paredModel9 = glm::translate(paredModel9, glm::vec3(13.0, 0.0, -1.8));
-		paredModel9 = glm::scale(paredModel9, glm::vec3(4.0, 10.0, 0.01));
+		paredModel9 = glm::translate(paredModel9, glm::vec3(13.0, 2.5, -1.8));
+		paredModel9 = glm::scale(paredModel9, glm::vec3(4.0, 5.0, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
 		box2.render(paredModel9);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -1172,61 +1325,45 @@ void applicationLoop() {
 		escaleraModel1 = glm::scale(escaleraModel1, glm::vec3(1.25, 2.5, 3.6));
 		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel1);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel2 = glm::mat4(1.0);
 		escaleraModel2 = glm::translate(escaleraModel2, glm::vec3(13.4, -4.0, 0.9));
 		escaleraModel2 = glm::scale(escaleraModel2, glm::vec3(0.7, 2.0, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel2);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel3 = glm::mat4(1.0);
 		escaleraModel3 = glm::translate(escaleraModel3, glm::vec3(12.7, -4.25, 0.9));
 		escaleraModel3 = glm::scale(escaleraModel3, glm::vec3(0.7, 1.5, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel3);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel4 = glm::mat4(1.0);
 		escaleraModel4 = glm::translate(escaleraModel4, glm::vec3(12.0, -4.5, 0.9));
 		escaleraModel4 = glm::scale(escaleraModel4, glm::vec3(0.7, 1.0, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel4);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel5 = glm::mat4(1.0);
 		escaleraModel5 = glm::translate(escaleraModel5, glm::vec3(11.35, -4.75, 0.9));
 		escaleraModel5 = glm::scale(escaleraModel5, glm::vec3(0.7, 0.5, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel5);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel6 = glm::mat4(1.0);
 		escaleraModel6 = glm::translate(escaleraModel6, glm::vec3(13.4, -2.1875, -0.9));
 		escaleraModel6 = glm::scale(escaleraModel6, glm::vec3(0.7, 0.625, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel6);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel7 = glm::mat4(1.0);
 		escaleraModel7 = glm::translate(escaleraModel7, glm::vec3(12.7, -1.5625, -0.9));
 		escaleraModel7 = glm::scale(escaleraModel7, glm::vec3(0.7, 0.625, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel7);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel8 = glm::mat4(1.0);
 		escaleraModel8 = glm::translate(escaleraModel8, glm::vec3(12.0, -0.9375, -0.9));
 		escaleraModel8 = glm::scale(escaleraModel8, glm::vec3(0.7, 0.625, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel8);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 escaleraModel9 = glm::mat4(1.0);
 		escaleraModel9 = glm::translate(escaleraModel9, glm::vec3(11.35, -0.3125, -0.9));
 		escaleraModel9 = glm::scale(escaleraModel9, glm::vec3(0.7, 0.625, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID9);
 		box2.render(escaleraModel9);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -1236,34 +1373,43 @@ void applicationLoop() {
 		paredEscaleraModel1 = glm::scale(paredEscaleraModel1, glm::vec3(0.7, 4.375, 0.01));
 		glBindTexture(GL_TEXTURE_2D, textureID5);
 		box2.render(paredEscaleraModel1);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 paredEscaleraModel2 = glm::mat4(1.0);
 		paredEscaleraModel2 = glm::translate(paredEscaleraModel2, glm::vec3(12.05, -3.125, 0.0));
 		paredEscaleraModel2 = glm::scale(paredEscaleraModel2, glm::vec3(0.7, 3.75, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID5);
 		box2.render(paredEscaleraModel2);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 paredEscaleraModel3 = glm::mat4(1.0);
 		paredEscaleraModel3 = glm::translate(paredEscaleraModel3, glm::vec3(12.75, -3.4375, 0.0));
 		paredEscaleraModel3 = glm::scale(paredEscaleraModel3, glm::vec3(0.7, 3.125, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID5);
 		box2.render(paredEscaleraModel3);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 paredEscaleraModel4 = glm::mat4(1.0);
 		paredEscaleraModel4 = glm::translate(paredEscaleraModel4, glm::vec3(13.45, -3.75, 0.0));
 		paredEscaleraModel4 = glm::scale(paredEscaleraModel4, glm::vec3(0.7, 2.5, 0.01));
-		glBindTexture(GL_TEXTURE_2D, textureID5);
 		box2.render(paredEscaleraModel4);
-		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 paredEscaleraModell15 = glm::mat4(1.0);
-		paredEscaleraModell15 = glm::translate(paredEscaleraModell15, glm::vec3(11.0, -0.4375, -0.9));
-		paredEscaleraModell15 = glm::scale(paredEscaleraModell15, glm::vec3(0.01, 0.375, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID5);
+		paredEscaleraModell15 = glm::translate(paredEscaleraModell15, glm::vec3(11.0, -0.5, -2.0));
+		paredEscaleraModell15 = glm::scale(paredEscaleraModell15, glm::vec3(0.01, 1.0, 4.0));
 		box2.render(paredEscaleraModell15);
+
+		glm::mat4 paredEscaleraModell16 = glm::mat4(1.0);
+		paredEscaleraModell16 = glm::translate(paredEscaleraModell16, glm::vec3(13.0, -2.5, -4.0));
+		paredEscaleraModell16 = glm::scale(paredEscaleraModell16, glm::vec3(4.0, 5.0, 0.01));
+		box2.render(paredEscaleraModell16);
+
+		glm::mat4 paredEscaleraModell17 = glm::mat4(1.0);
+		paredEscaleraModell17 = glm::translate(paredEscaleraModell17, glm::vec3(11.0, -3.0, -1.0));
+		paredEscaleraModell17 = glm::scale(paredEscaleraModell17, glm::vec3(0.01, 4.0, 2.0));
+		box2.render(paredEscaleraModell17);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 puerta4 = glm::mat4(1.0);
+		puerta4 = glm::translate(puerta4, glm::vec3(11.0, -3.0, -3.0));
+		puerta4 = glm::scale(puerta4, glm::vec3(0.01, 4.0, 2.0));
+		glBindTexture(GL_TEXTURE_2D, textureID11);
+		box2.render(puerta4);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Pared frontal<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1362,13 +1508,6 @@ void applicationLoop() {
 		box2.render(puerta3);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		glm::mat4 puerta4 = glm::mat4(1.0);
-		puerta4 = glm::translate(puerta4, glm::vec3(11.0, -3.0, -0.9));
-		puerta4 = glm::scale(puerta4, glm::vec3(0.01, 4.0, 1.8));
-		glBindTexture(GL_TEXTURE_2D, textureID11);
-		box2.render(puerta4);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Ventanas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 		glm::mat4 window1 = glm::mat4(1.0);
@@ -1402,14 +1541,14 @@ void applicationLoop() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 modelBaseLamp2 = glm::mat4(1.0);
-		modelBaseLamp2 = glm::translate(modelBaseLamp2, glm::vec3(11.5, -0.05, -4.0));
+		modelBaseLamp2 = glm::translate(modelBaseLamp2, glm::vec3(11.5, -0.05, -6.0));
 		modelBaseLamp2 = glm::scale(modelBaseLamp2, glm::vec3(1.0, 0.1, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID14);
 		cylinder2.render(modelBaseLamp2);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glm::mat4 modelLamp2 = glm::mat4(1.0);
-		modelLamp2 = glm::translate(modelLamp2, glm::vec3(11.5, -0.1, -4.0));
+		modelLamp2 = glm::translate(modelLamp2, glm::vec3(11.5, -0.1, -6.0));
 		modelLamp2 = glm::scale(modelLamp2, glm::vec3(1.0, 0.2, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID15);
 		sphere2.render(modelLamp2);
@@ -1441,6 +1580,20 @@ void applicationLoop() {
 		modelLamp4 = glm::scale(modelLamp4, glm::vec3(1.0, 0.2, 1.0));
 		glBindTexture(GL_TEXTURE_2D, textureID15);
 		sphere2.render(modelLamp4);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 modelBaseLamp5 = glm::mat4(1.0);
+		modelBaseLamp5 = glm::translate(modelBaseLamp5, glm::vec3(11.5, -0.05, -12.0));
+		modelBaseLamp5 = glm::scale(modelBaseLamp5, glm::vec3(1.0, 0.1, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		cylinder2.render(modelBaseLamp5);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 modelLamp5 = glm::mat4(1.0);
+		modelLamp5 = glm::translate(modelLamp5, glm::vec3(11.5, -0.1, -12.0));
+		modelLamp5 = glm::scale(modelLamp5, glm::vec3(1.0, 0.2, 1.0));
+		glBindTexture(GL_TEXTURE_2D, textureID15);
+		sphere2.render(modelLamp5);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Terreno<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1542,6 +1695,118 @@ void applicationLoop() {
 		box2.render(9, 20, modelCabecera);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Cocina<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		glm::mat4 paredCocina1 = glm::mat4(1.0);
+		paredCocina1 = glm::translate(paredCocina1, glm::vec3(12.5, -4.0, -16.0));
+		paredCocina1 = glm::scale(paredCocina1, glm::vec3(5.0, 2.0, 0.01));
+		glBindTexture(GL_TEXTURE_2D, textureID5);
+		box2.render(paredCocina1);
+
+		glm::mat4 paredCocina2 = glm::mat4(1.0);
+		paredCocina2 = glm::translate(paredCocina2, glm::vec3(14.0, -1.5, -16.0));
+		paredCocina2 = glm::scale(paredCocina2, glm::vec3(2.0, 3.0, 0.01));
+		box2.render(paredCocina2);
+
+		glm::mat4 paredCocina3 = glm::mat4(1.0);
+		paredCocina3 = glm::translate(paredCocina3, glm::vec3(10.25, -1.5, -16.0));
+		paredCocina3 = glm::scale(paredCocina3, glm::vec3(0.5, 3.0, 0.01));
+		box2.render(paredCocina3);
+
+		glm::mat4 paredCocina4 = glm::mat4(1.0);
+		paredCocina4 = glm::translate(paredCocina4, glm::vec3(11.5, -0.5, -16.0));
+		paredCocina4 = glm::scale(paredCocina4, glm::vec3(7.0, 1.0, 0.01));
+		box2.render(paredCocina4);
+
+		glm::mat4 paredCocina5 = glm::mat4(1.0);
+		paredCocina5 = glm::translate(paredCocina5, glm::vec3(11.5, -0.5, -9.0));
+		paredCocina5 = glm::scale(paredCocina5, glm::vec3(7.0, 1.0, 1.0));
+		box2.render(paredCocina5);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 puertaCocina = glm::mat4(1.0);
+		puertaCocina = glm::translate(puertaCocina, glm::vec3(9.0, -3.0, -16.0));
+		puertaCocina = glm::scale(puertaCocina, glm::vec3(2.0, 4.0, 0.01));
+		glBindTexture(GL_TEXTURE_2D, textureID30);
+		box2.render(puertaCocina);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 barra = glm::mat4(1.0);
+		barra = glm::translate(barra, glm::vec3(12.6, -3.0, -15.25));
+		barra = glm::scale(barra, glm::vec3(4.8, 0.3, 1.5));
+		glBindTexture(GL_TEXTURE_2D, textureID27);
+		box2.render(barra);
+
+		glm::mat4 barra2 = glm::mat4(1.0);
+		barra2 = glm::translate(barra2, glm::vec3(14.25, -3.0, -11.75));
+		barra2 = glm::scale(barra2, glm::vec3(1.5, 0.3, 1.5));
+		box2.render(barra2);
+
+		glm::mat4 barra3 = glm::mat4(1.0);
+		barra3 = glm::translate(barra3, glm::vec3(10.35, -4.075, -15.25));
+		barra3 = glm::scale(barra3, glm::vec3(0.3, 1.85, 1.5));
+		box2.render(barra3);
+
+		glm::mat4 barra4 = glm::mat4(1.0);
+		barra4 = glm::translate(barra4, glm::vec3(12.75, -4.0, -15.25));
+		barra4 = glm::scale(barra4, glm::vec3(4.5, 0.3, 1.5));
+		box2.render(barra4);
+
+		glm::mat4 barra5 = glm::mat4(1.0);
+		barra5 = glm::translate(barra5, glm::vec3(14.25, -3.925, -10.85));
+		barra5 = glm::scale(barra5, glm::vec3(1.5, 2.15, 0.3));
+		box2.render(barra5);
+
+		glm::mat4 barra6 = glm::mat4(1.0);
+		barra6 = glm::translate(barra6, glm::vec3(14.25, -4.075, -12.35));
+		barra6 = glm::scale(barra6, glm::vec3(1.5, 1.85, 0.3));
+		box2.render(barra6);
+
+		glm::mat4 barra7 = glm::mat4(1.0);
+		barra7 = glm::translate(barra7, glm::vec3(12.0, -3.5, -15.25));
+		barra7 = glm::scale(barra7, glm::vec3(0.3, 0.7, 1.5));
+		box2.render(barra7);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 ventanaCocina = glm::mat4(1.0);
+		ventanaCocina = glm::translate(ventanaCocina, glm::vec3(11.75, -2.0, -16.0));
+		ventanaCocina = glm::scale(ventanaCocina, glm::vec3(2.5, 2.0, 0.01));
+		glBindTexture(GL_TEXTURE_2D, textureID13);
+		box2.render(ventanaCocina);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 estufa = glm::mat4(1.0);
+		estufa = glm::translate(estufa, glm::vec3(14.25, -3.9, -13.5));
+		estufa = glm::scale(estufa, glm::vec3(1.5, 2.2, 2.0));
+		glBindTexture(GL_TEXTURE_2D, textureID31);
+		box2.render(0,24,estufa);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID32);
+		box2.render(24,38,estufa);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 vitrina = glm::mat4(1.0);
+		vitrina = glm::translate(vitrina, glm::vec3(12.5, -3.25, -4.35));
+		vitrina = glm::scale(vitrina, glm::vec3(2.5, 3.5, 0.7));
+		glBindTexture(GL_TEXTURE_2D, textureID28);
+		box2.render(6,12,vitrina);
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, textureID29);
+		box2.render(18,38,vitrina);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 borde = glm::mat4(1.0);
+		borde = glm::translate(borde, glm::vec3(10.85, -3.55, -7.0));
+		borde = glm::scale(borde, glm::vec3(1.0, 0.1, 1.85));
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		cylinder2.render(borde);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glm::mat4 borde2 = glm::mat4(1.0);
+		borde2 = glm::translate(borde2, glm::vec3(13.75, -3.55, -7.0));
+		borde2 = glm::scale(borde2, glm::vec3(1.0, 0.1, 1.85));
+		glBindTexture(GL_TEXTURE_2D, textureID14);
+		cylinder2.render(borde2);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
 		//----------------------------------------------Modelos----------------------------------------------------
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Camas<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -1559,11 +1824,11 @@ void applicationLoop() {
 		modelTV.render(matrixModelTV);
 		glActiveTexture(GL_TEXTURE0);
 
-		glm::mat4 matrixModelChair = glm::mat4(1.0);
+		/*glm::mat4 matrixModelChair = glm::mat4(1.0);
 		matrixModelChair = glm::translate(matrixModelChair, glm::vec3(12.0, 0.0, 9.0));
 		matrixModelChair = glm::rotate(matrixModelChair, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
 		modelChair.render(matrixModelChair);
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0);*/
 
 		glm::mat4 matrixModelCurtain = glm::mat4(1.0);
 		matrixModelCurtain = glm::translate(matrixModelCurtain, glm::vec3(12.0, 1.5, 8.8));
@@ -1571,6 +1836,60 @@ void applicationLoop() {
 		modelCurtain.render(matrixModelCurtain);
 		glActiveTexture(GL_TEXTURE0);
 
+		glm::mat4 matrixModelRefrigerator = glm::mat4(1.0);
+		matrixModelRefrigerator = glm::translate(matrixModelRefrigerator, glm::vec3(13.7, -5.0, -9.8));
+		matrixModelRefrigerator = glm::rotate(matrixModelRefrigerator, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
+		matrixModelRefrigerator = glm::scale(matrixModelRefrigerator, glm::vec3(0.06, 0.05, 0.06));
+		modelRefrigerator.render(matrixModelRefrigerator);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelCurtainKitchen = glm::mat4(1.0);
+		matrixModelCurtainKitchen = glm::translate(matrixModelCurtainKitchen, glm::vec3(11.7, -3.0, -15.8));
+		matrixModelCurtainKitchen = glm::rotate(matrixModelCurtainKitchen, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+		modelCurtainKitchen.render(matrixModelCurtainKitchen);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelTable = glm::mat4(1.0);
+		matrixModelTable = glm::translate(matrixModelTable, glm::vec3(12.3, -5.0, -7.0));
+		matrixModelTable = glm::rotate(matrixModelTable, glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0));
+		matrixModelTable = glm::scale(matrixModelTable, glm::vec3(0.0025, 0.0025, 0.003));
+		modelTable.render(matrixModelTable);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelChair = glm::mat4(1.0);
+		matrixModelChair = glm::translate(matrixModelChair, glm::vec3(12.5, -5.0, -5.0));
+		matrixModelChair = glm::rotate(matrixModelChair, glm::radians(180.0f), glm::vec3(0.0, 1.0, 0.0));
+		matrixModelChair = glm::scale(matrixModelChair, glm::vec3(1.2, 1.0, 1.1));
+		modelChair.render(matrixModelChair);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelChair2 = glm::mat4(1.0);
+		matrixModelChair2 = glm::translate(matrixModelChair2, glm::vec3(12.5, -5.0, -9.0));
+		matrixModelChair2 = glm::scale(matrixModelChair2, glm::vec3(1.2, 1.0, 1.1));
+		modelChair.render(matrixModelChair2);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelChair3 = glm::mat4(1.0);
+		matrixModelChair3 = glm::translate(matrixModelChair3, glm::vec3(9.8, -5.0, -7.0));
+		matrixModelChair3 = glm::rotate(matrixModelChair3, glm::radians(90.0f), glm::vec3(0.0, 1.0, 0.0));
+		matrixModelChair3 = glm::scale(matrixModelChair3, glm::vec3(1.2, 1.0, 1.1));
+		modelChair.render(matrixModelChair3);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelChair4 = glm::mat4(1.0);
+		matrixModelChair4 = glm::translate(matrixModelChair4, glm::vec3(15.0, -5.0, -7.0));
+		matrixModelChair4 = glm::rotate(matrixModelChair4, glm::radians(-90.0f), glm::vec3(0.0, 1.0, 0.0));
+		matrixModelChair4 = glm::scale(matrixModelChair4, glm::vec3(1.2, 1.0, 1.1));
+		modelChair.render(matrixModelChair4);
+		glActiveTexture(GL_TEXTURE0);
+
+		glm::mat4 matrixModelTV2 = glm::mat4(1.0);
+		matrixModelTV2 = glm::translate(matrixModelTV2, glm::vec3(14.5, -2.5, -7.0));
+		matrixModelTV2 = glm::rotate(matrixModelTV2, glm::radians(-90.0f), glm::vec3(1.0, 0.0, 0.0));
+		matrixModelTV2 = glm::rotate(matrixModelTV2, glm::radians(-90.0f), glm::vec3(0.0, 0.0, 1.0));
+		matrixModelTV2 = glm::scale(matrixModelTV2, glm::vec3(2.0, 2.0, 2.0));
+		modelTV.render(matrixModelTV2);
+		glActiveTexture(GL_TEXTURE0);
 
 		/*******************************************
 		 * Skybox
@@ -1671,12 +1990,13 @@ void applicationLoop() {
 		sphere2.render(lunaModel);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+
 		glfwSwapBuffers(window);
 	}
 }
 
 int main(int argc, char** argv) {
-	init(800, 700, "Proyecto Final Lab CGIHC", false);
+	init(800, 700, "Proyecto Final CGIHC", false);
 	applicationLoop();
 	destroy();
 	return 1;
